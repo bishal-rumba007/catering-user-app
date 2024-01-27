@@ -1,5 +1,6 @@
 
 import 'package:catering_user_app/src/features/menu/domain/models/menu_model.dart';
+import 'package:catering_user_app/src/features/menu/screens/menu_detail_screen.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -36,53 +37,90 @@ class PopularMenuCard extends StatelessWidget {
               childAspectRatio: 0.89
           ),
           itemBuilder: (context, index) {
-            return Card(
-              elevation: 1,
-              child: Container(
-                padding: EdgeInsets.all(10.w),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.r)),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 90.h,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(12.r),
-                          ),
-                          image: DecorationImage(
-                              fit: BoxFit.cover,
-                              image: NetworkImage(menuData[index].categoryImage)
-                          )
-                      ),
-                    ),
-                    SizedBox(height: 6.h,),
-                    Text(
-                      '${menuData[index].categoryName} Menu',
-                      style: Theme.of(context).textTheme.bodySmall
-                    ),
-                    const Spacer(),
-                    Text(
-                      'Per person',
-                      style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                        fontSize: 10.sp
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          'Rs. ${menuData[index].price}',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                              fontWeight: FontWeight.bold,
-                              color: AppColor.primaryRed
-                          ),
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => MenuDetailScreen(
+                          menuData: menuData[index],
                         ),
-                        const Text('⭐ 3.2'),
-                      ],
                     ),
-                  ],
+                );
+              },
+              child: Card(
+                elevation: 0,
+                color: Colors.transparent,
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(14.r),
+                  ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          Container(
+                            height: 140.h,
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(12.r),
+                                image: DecorationImage(
+                                    fit: BoxFit.cover,
+                                    image: NetworkImage(menuData[index].categoryImage)
+                                )
+                            ),
+                          ),
+                          Positioned(
+                            left: 10.w,
+                            bottom: 10.h,
+                            child: Container(
+                              height: 40.h,
+                              width: 120.w,
+                              decoration: BoxDecoration(
+                                color: AppColor.primaryRed.withOpacity(0.80),
+                                borderRadius: BorderRadius.circular(12.r),
+                              ),
+                              child: Center(
+                                child: Text(
+                                    '${menuData[index].categoryName} Menu',
+                                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                        color: Colors.white,
+                                        fontSize: 14.sp,
+                                    )
+                                ),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 6.h,),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            'Rs. ${menuData[index].price}',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                fontWeight: FontWeight.bold,
+                                color: AppColor.primaryRed
+                            ),
+                          ),
+                          Text(
+                            '3.2 ⭐',
+                            style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                              color: AppColor.containerColor,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w600
+                            ),
+                          ),
+                        ],
+                      ),
+                      SizedBox(height: 2.h,),
+                      Text(
+                        'Per person',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );

@@ -39,7 +39,7 @@ class CategoryWidget extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'Your Categories',
+                  'Categories',
                   style: Theme.of(context)
                       .textTheme
                       .headlineSmall

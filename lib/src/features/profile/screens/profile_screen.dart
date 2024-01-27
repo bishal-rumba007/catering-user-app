@@ -1,7 +1,6 @@
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
 import 'package:catering_user_app/src/features/profile/data/update_image_provider.dart';
 import 'package:catering_user_app/src/features/profile/screens/widgets/option_card.dart';
-import 'package:catering_user_app/src/shared/data/image_provider.dart';
 import 'package:catering_user_app/src/shared/data/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

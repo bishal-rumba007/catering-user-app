@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:catering_user_app/src/features/auth/screens/status_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -16,19 +17,19 @@ class _SplashScreenState extends State<SplashScreen> {
 
   _startDelay() {
     _timer = Timer(const Duration(seconds: 3), () {
-      // Navigator.pushReplacement(
-      //   context,
-      //   MaterialPageRoute(
-      //     builder: (_) => const StatusScreen(),
-      //   ),
-      // );
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (_) => const StatusScreen(),
+        ),
+      );
     });
   }
 
   @override
   void initState() {
     super.initState();
-    // _startDelay();
+    _startDelay();
   }
 
   @override

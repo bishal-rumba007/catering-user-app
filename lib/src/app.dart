@@ -19,7 +19,7 @@ class MainApp extends StatelessWidget {
           title: 'Flutter Demo',
           theme: lightMode,
           darkTheme: darkMode,
-          home: const LoginScreen(),
+          home: const SplashScreen(),
           navigatorKey: navigatorKey,
         );
       },

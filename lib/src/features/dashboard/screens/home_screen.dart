@@ -4,6 +4,7 @@ import 'package:catering_user_app/src/features/dashboard/screens/widgets/categor
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/menu_widget.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/my_drawer.dart';
 import 'package:catering_user_app/src/features/menu/data/menu_data_provider.dart';
+import 'package:catering_user_app/src/shared/data/category_provider.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -29,6 +30,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final menuData = ref.watch(menuProvider);
+    // final categoryData = ref.watch(categoryProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
@@ -103,7 +105,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                   ),
                   data.isEmpty ?
                   Text(
-                    'Create menus so people discover your business more!',
+                    'No Categories Available',
                     style: Theme.of(context).textTheme.bodyMedium,
                   )
                       : PopularMenuCard(menuData: data,),

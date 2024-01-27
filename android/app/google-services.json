@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "67672590699",
+    "project_id": "cateringservicemgmt",
+    "storage_bucket": "cateringservicemgmt.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67672590699:android:be915f2ed87322e734642e",
+        "android_client_info": {
+          "package_name": "com.example.catering_service_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ymvOA1UNAafDU3tUiVy8Gn9eea0-fUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:67672590699:android:7329ea13ea97e0a034642e",
+        "android_client_info": {
+          "package_name": "com.example.catering_user_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC9ymvOA1UNAafDU3tUiVy8Gn9eea0-fUs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,5 +1,8 @@
 
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
+import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
+import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
+import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
 import 'package:catering_user_app/src/shared/data/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -79,18 +82,18 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => const ProfileScreen(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const ProfileScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
-                leading: const Icon(Icons.add_box_outlined),
+                leading: const Icon(Icons.message),
                 title: Text(
-                  'Create Menu',
+                  'Recent Chats',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 onTap: () {
@@ -106,17 +109,17 @@ class MyDrawer extends ConsumerWidget {
               ListTile(
                 leading: const Icon(Icons.restaurant_menu, size: 24,),
                 title: Text(
-                  'My Menus',
+                  'Menus',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => const MenuScreen(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const MenuScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
@@ -127,18 +130,18 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => const NotificationScreen(),
-                  //   ),
-                  // );
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const NotificationScreen(),
+                    ),
+                  );
                 },
               ),
               ListTile(
                 leading: const Icon(Icons.shopping_cart),
                 title: Text(
-                  'Orders',
+                  'My Bookings',
                   style: Theme.of(context).textTheme.bodyLarge,
                 ),
                 onTap: () {

@@ -12,35 +12,10 @@ class MenuDataSource{
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<String> createMenu({required String categoryId, required String price,
-    required List<String> starterMenu, required List<String> mainCourseMenu,
-    required List<String> dessertMenu, required String categoryName}) async{
-    try{
-      final userData = await _userDb.doc(uid).get();
-      await menuDb.add({
-        'userId': userData.id,
-        'providerName': userData['firstName'],
-        'price': price,
-        'categoryId': categoryId,
-        'categoryName': categoryName,
-        'starterMenu': starterMenu,
-        'mainCourseMenu': mainCourseMenu,
-        'dessertMenu': dessertMenu
-      });
-      return 'Created Menu';
-    }on FirebaseException catch(err){
-      return '${err.message}';
-    }
-  }
 
   Future<List<Menus>> getMenu() async {
     try {
-      final userData = await _userDb.doc(uid).get();
-      final userId = userData.id;
-      final response = await menuDb
-          .where('userId', isEqualTo: userId)
-          .get();
-
+      final response = await menuDb.get();
       final menusList = await Future.wait(response.docs.map((doc) async {
         final json = doc.data();
         final categoryImage = await getCategoryImage(json['categoryId']);
@@ -94,18 +69,4 @@ class MenuDataSource{
       return '${err.message}';
     }
   }
-
-
-  Future<String> deleteMenu(String menuId) async {
-    try {
-      await menuDb.doc(menuId).delete();
-      return 'success';
-    } on FirebaseException catch (err) {
-      throw '$err';
-    }
-  }
-
-
-
-
 }
