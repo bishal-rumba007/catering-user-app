@@ -5,7 +5,13 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 class EditableChipField extends StatefulWidget {
   final List<String> initialValues;
   final ValueChanged<List<String>> onChanged;
-  const EditableChipField({super.key, required this.onChanged, required this.initialValues});
+  final int? maxLine;
+  const EditableChipField({
+    super.key,
+    required this.onChanged,
+    required this.initialValues,
+    this.maxLine,
+  });
 
   @override
   EditableChipFieldState createState() {
@@ -20,7 +26,7 @@ class EditableChipFieldState extends State<EditableChipField> {
   @override
   void initState() {
     super.initState();
-    menuItems = widget.initialValues ?? [];
+    menuItems = widget.initialValues;
   }
 
   @override
@@ -37,6 +43,7 @@ class EditableChipFieldState extends State<EditableChipField> {
           onChanged: _onChanged,
           onSubmitted: _onSubmitted,
           chipBuilder: _chipBuilder,
+          maxLine: widget.maxLine,
           // onTextChanged: _onSearchChanged,
         ),
       ],
@@ -92,12 +99,14 @@ class ChipsInput<T> extends StatefulWidget {
     this.onChipTapped,
     this.onSubmitted,
     this.onTextChanged,
+    this.maxLine = 3,
   });
 
   final List<T> values;
   final InputDecoration decoration;
   final TextStyle? style;
   final StrutStyle? strutStyle;
+  final int? maxLine;
 
   final ValueChanged<List<T>> onChanged;
   final ValueChanged<T>? onChipTapped;
@@ -183,7 +192,7 @@ class ChipsInputState<T> extends State<ChipsInput<T>> {
 
     return TextField(
       minLines: 1,
-      maxLines: 3,
+      maxLines: widget.maxLine,
       style: widget.style,
       strutStyle: widget.strutStyle,
       controller: controller,
