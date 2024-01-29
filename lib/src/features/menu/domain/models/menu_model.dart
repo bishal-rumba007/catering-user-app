@@ -8,6 +8,7 @@ class Menus {
   String categoryId;
   String categoryName;
   String categoryImage;
+  String menuDescription;
   List<String> starterMenu;
   List<String> mainCourseMenu;
   List<String> dessertMenu;
@@ -23,6 +24,7 @@ class Menus {
     required this.starterMenu,
     required this.mainCourseMenu,
     required this.dessertMenu,
+    required this.menuDescription,
   });
 
   factory Menus.fromJson(Map<String, dynamic> json) {
@@ -34,6 +36,7 @@ class Menus {
       categoryId: json['categoryId'],
       categoryName: json['categoryName'],
       categoryImage: json['categoryImage'],
+      menuDescription: json['menuDescription'],
       starterMenu: List<String>.from(json['starterMenu']),
       mainCourseMenu: List<String>.from(json['mainCourseMenu']),
       dessertMenu: List<String>.from(json['dessertMenu']),
