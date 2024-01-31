@@ -5,6 +5,7 @@
 import 'package:catering_user_app/src/features/menu/domain/models/menu_model.dart';
 
 class PreOrderModel{
+  final String customerId;
   final String date;
   final String name;
   final String address;
@@ -15,6 +16,7 @@ class PreOrderModel{
   final Menus menu;
 
   PreOrderModel({
+    required this.customerId,
     required this.date,
     required this.name,
     required this.address,
