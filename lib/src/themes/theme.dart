@@ -183,6 +183,9 @@ ThemeData lightMode = ThemeData(
   iconTheme: IconThemeData(
     color: AppColor.darkColor,
   ),
+  cardTheme: CardTheme(
+    color: Colors.white,
+  ),
   appBarTheme: AppBarTheme(
       titleTextStyle: GoogleFonts.inter(
           fontSize: 18.sp,
