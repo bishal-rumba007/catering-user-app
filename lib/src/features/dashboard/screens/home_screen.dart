@@ -30,7 +30,6 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final menuData = ref.watch(menuProvider);
-    // final categoryData = ref.watch(categoryProvider);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
