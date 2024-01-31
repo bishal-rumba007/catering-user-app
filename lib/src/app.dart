@@ -21,6 +21,8 @@ class MainApp extends StatelessWidget {
           darkTheme: darkMode,
           home: const SplashScreen(),
           navigatorKey: navigatorKey,
+          onGenerateRoute: RouteGenerator.generateRoute,
+          initialRoute: Routes.splashRoute,
         );
       },
     );
