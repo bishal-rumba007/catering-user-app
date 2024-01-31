@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
@@ -74,7 +75,12 @@ class EditableChipFieldState extends State<EditableChipField> {
       setState(() {
         menuItems = <String>[...menuItems, text.trim()];
       });
-      FocusScope.of(context).requestFocus(FocusNode());
+
+      // Check if the Enter key is pressed
+      if (RawKeyboard.instance.keysPressed.contains(LogicalKeyboardKey.enter)) {
+        // If Enter key is not pressed, request focus to keep the keyboard open
+        FocusScope.of(context).requestFocus(FocusNode());
+      }
       widget.onChanged(menuItems);
     }
   }
@@ -280,13 +286,17 @@ class MenuInputChip extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.only(right: 3),
-      child: InputChip(
-        key: ObjectKey(menuItem),
-        label: Text(menuItem),
-        onDeleted: () => onDeleted(menuItem),
-        onSelected: (bool value) => onSelected(menuItem),
-        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-        padding: EdgeInsets.all(2.w),
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: 3.w, vertical: 3.h),
+        child: InputChip(
+          deleteIconColor: Theme.of(context).iconTheme.color,
+          key: ObjectKey(menuItem),
+          label: Text(menuItem),
+          onDeleted: () => onDeleted(menuItem),
+          onSelected: (bool value) => onSelected(menuItem),
+          materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+          padding: EdgeInsets.all(2.w),
+        ),
       ),
     );
   }
