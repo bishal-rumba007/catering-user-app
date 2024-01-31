@@ -2,9 +2,12 @@
 import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/features/menu/domain/models/menu_model.dart';
 import 'package:catering_user_app/src/features/menu/screens/booking_screen.dart';
+import 'package:catering_user_app/src/themes/export_themes.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:readmore/readmore.dart';
 
 class MenuDetailScreen extends ConsumerStatefulWidget {
   final Menus menuData;
@@ -81,14 +84,17 @@ class MenuDetailScreenState extends ConsumerState<MenuDetailScreen> {
                   elevation: 40,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.vertical(
-                          top: Radius.circular(30.r))),
+                          top: Radius.circular(30.r),
+                      ),
+                  ),
                   child: Container(
                     padding:
                     EdgeInsets.only(top: 18.h, left: 18.w, right: 18.w),
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.vertical(
                           top: Radius.circular(30.r),
-                        )),
+                        ),
+                    ),
                     child: ListView(
                       controller: scrollController,
                       children: [
@@ -187,17 +193,43 @@ class MenuDetailScreenState extends ConsumerState<MenuDetailScreen> {
                         SizedBox(
                           height: 20.h,
                         ),
-                        Text('About Menu', style: Theme.of(context).textTheme.titleLarge,),
+
                         SizedBox(
-                          height: 10.h,
+                          height: 20.h,
                         ),
-                        // Text(
-                        //   menuDetail.menuDescription,
-                        //   style: Theme.of(context).textTheme.bodyMedium,
-                        //   maxLines: 5,
-                        //   overflow: TextOverflow.ellipsis,
-                        // ),
-                        ExpandableText(text: menuDetail.menuDescription),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text('About Menu', style: Theme.of(context).textTheme.titleLarge,),
+                            RichText(
+                              text: TextSpan(
+                                children: [
+                                  TextSpan(text: '⭐ 4.8 ', style: Theme.of(context).textTheme.titleMedium?.copyWith(
+                                    fontWeight: FontWeight.bold
+                                  ),),
+                                  TextSpan(
+                                      text: '(67 Reviews)', style: Theme.of(context).textTheme.bodyMedium),
+                                ]
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(height: 14.h,),
+                        ReadMoreText(
+                          menuDetail.menuDescription,
+                          trimLines: 4,
+                          trimMode: TrimMode.Line,
+                          colorClickableText: AppColor.primaryRed,
+                          trimCollapsedText: 'Read more',
+                          trimExpandedText: 'Read less',
+                          textAlign: TextAlign.justify,
+                          moreStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: AppColor.primaryRed,
+                          ),
+                          lessStyle: Theme.of(context).textTheme.labelLarge?.copyWith(
+                            color: AppColor.primaryRed,
+                          ),
+                        ),
                         SizedBox(
                           height: 30.h,
                         ),
@@ -218,6 +250,7 @@ class MenuDetailScreenState extends ConsumerState<MenuDetailScreen> {
                         SizedBox(
                           height: 10.h,
                         ),
+
                       ],
                     ),
                   ),
@@ -227,47 +260,6 @@ class MenuDetailScreenState extends ConsumerState<MenuDetailScreen> {
           )
         ],
       ),
-    );
-  }
-}
-
-
-
-class ExpandableText extends StatefulWidget {
-  final String text;
-
-  const ExpandableText({super.key, required this.text});
-
-  @override
-  State<ExpandableText> createState() => _ExpandableTextState();
-}
-
-class _ExpandableTextState extends State<ExpandableText> {
-  bool isExpanded = true;
-
-  @override
-  Widget build(BuildContext context) {
-    print(isExpanded);
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(
-          widget.text,
-          maxLines: isExpanded ? null : 4,
-          overflow: TextOverflow.values[3],
-        ),
-        TextButton(
-          onPressed: () {
-            setState(() {
-              isExpanded = !isExpanded;
-            });
-          },
-          child: Text(
-            isExpanded ? 'Show less' : 'Show more',
-            style: const TextStyle(color: Colors.blue),
-          ),
-        ),
-      ],
     );
   }
 }
