@@ -1,6 +1,6 @@
-import 'package:catering_service_app/src/features/order/domain/models/order_model.dart';
-import 'package:catering_service_app/src/features/order/screens/order_detail_screen.dart';
-import 'package:catering_service_app/src/features/order/screens/widgets/common_function.dart';
+import 'package:catering_user_app/src/features/order/screens/order_detail_screen.dart';
+import 'package:catering_user_app/src/features/order/screens/widgets/common_function.dart';
+import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
@@ -49,7 +49,7 @@ class OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${order.menuName} Party',
+                      '${order.menuName} Order',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w700
