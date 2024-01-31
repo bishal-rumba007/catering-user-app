@@ -1,8 +1,6 @@
 
+import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
-import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
-import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
-import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
 import 'package:catering_user_app/src/shared/data/user_provider.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -82,12 +80,7 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const ProfileScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/profile');
                 },
               ),
               ListTile(
@@ -114,12 +107,7 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const MenuScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/menu');
                 },
               ),
               ListTile(
@@ -130,12 +118,7 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const NotificationScreen(),
-                    ),
-                  );
+                  Navigator.pushNamed(context, '/notification');
                 },
               ),
               ListTile(
@@ -146,12 +129,7 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //   context,
-                  //   MaterialPageRoute(
-                  //     builder: (_) => const OrderScreen(),
-                  //   ),
-                  // );
+                  Navigator.pushNamed(context, '/order-list');
                 },
               ),
               SizedBox(height: 10.h,),
