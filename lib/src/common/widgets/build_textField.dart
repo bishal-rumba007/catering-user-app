@@ -103,7 +103,7 @@ class BuildTextField extends StatelessWidget {
     this.hintText = '',
     this.textInputType,
     this.textInputAction,
-    this.suffixIconButton,
+    this.suffixIconWidget,
     this.maxLine,
     this.autoFocus = false,
     this.isEnabled = true,
@@ -115,7 +115,7 @@ class BuildTextField extends StatelessWidget {
   final String hintText;
   final TextInputType? textInputType;
   final TextInputAction? textInputAction;
-  final IconButton? suffixIconButton;
+  final Widget? suffixIconWidget;
   final int? maxLine;
   final bool autoFocus;
   final bool isEnabled;
@@ -134,9 +134,10 @@ class BuildTextField extends StatelessWidget {
       maxLines: maxLine,
       obscureText: false,
       decoration: InputDecoration(
+        alignLabelWithHint: true,
         labelText: labelText,
         hintText: hintText,
-        suffixIcon: suffixIconButton,
+        suffixIcon: suffixIconWidget,
       ),
     );
   }
