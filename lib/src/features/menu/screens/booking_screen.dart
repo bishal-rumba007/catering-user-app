@@ -361,6 +361,7 @@ class _BookingScreenState extends State<BookingScreen> {
                       child: BuildButton(
                         onPressed: () {
                           PreOrderModel preOrderModel = PreOrderModel(
+                            customerId: data.id,
                             date: dateController.text.trim(),
                             name: _nameController.text.trim(),
                             address: _addressController.text.trim(),
