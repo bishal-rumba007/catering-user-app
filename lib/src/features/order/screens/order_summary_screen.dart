@@ -1,7 +1,11 @@
 import 'package:catering_user_app/src/common/common_export.dart';
+import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
+import 'package:catering_user_app/src/features/order/data/order_datasource.dart';
+import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/domain/pre_order_model.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
@@ -313,7 +317,49 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
               ),
               SizedBox(height: 50.h,),
               BuildButton(
-                onPressed: (){},
+                onPressed: ()async{
+                  final navigator = Navigator.of(context);
+                  OrderModel orderModel = OrderModel(
+                      orderId: "",
+                      orderDetail: OrderDetail(
+                          customerId: widget.preOrderModel.customerId,
+                          customerName: widget.preOrderModel.name,
+                          customerAddress: widget.preOrderModel.address,
+                          customerPhone: widget.preOrderModel.phone,
+                          dietaryPref: widget.preOrderModel.dietaryPref,
+                          helpers: widget.preOrderModel.helpers,
+                          orderDate: widget.preOrderModel.date,
+                          totalGuests: widget.preOrderModel.totalGuests
+                      ),
+                      advancePayment: "",
+                      price: widget.preOrderModel.menu.price.toString(),
+                      categoryId: widget.preOrderModel.menu.categoryId,
+                      categoryName: widget.preOrderModel.menu.categoryName,
+                      categoryImage: "",
+                      catererId: widget.preOrderModel.menu.userId,
+                      menuId: widget.preOrderModel.menu.menuId,
+                      menuName: widget.preOrderModel.menu.categoryName,
+                      orderStatus: OrderStatus.pending,
+                      dessertMenu: widget.preOrderModel.menu.dessertMenu,
+                      mainCourseMenu: widget.preOrderModel.menu.mainCourseMenu,
+                      starterMenu: widget.preOrderModel.menu.starterMenu,
+                      user: const types.User(id: ''),
+                  );
+                  buildLoadingDialog(context, 'Placing Order!!');
+                  final response = await OrderDataSource().placeOrder(orderModel);
+                  navigator.pop();
+                  if(response == 'Order Placed Successfully'){
+                    if(!context.mounted) return;
+                    buildSuccessDialog(context, 'Order Placed Successfully',
+                    () {
+                      Navigator.pushNamedAndRemoveUntil(context, Routes.homeRoute, (route) => false);
+                    },
+                    );
+                  }else{
+                    if(!context.mounted) return;
+                    buildErrorDialog(context, 'Could not place order\n Try again later!',);
+                  }
+                },
                 buttonWidget: const Text('Confirm'),
               ),
             ],
@@ -381,3 +427,23 @@ class MySeparator extends StatelessWidget {
     );
   }
 }
+
+// {orderDetail: {
+// customerId: ,
+// customerName: Sanjay Gurung,
+// customerAddress: asdasd,
+// customerPhone: 9847523413, dietaryPref: , helpers: 2, orderDate: 2024-02-13, totalGuests: 30},
+// advancePayment: ,
+// price: 1499.0
+// ,
+// categoryId: 1
+// ,
+// categoryName: Wedding, categoryImage: ,
+// catererId: OGWCEB5C6fcAhCn8XjPnuQ66EUz1, menuId: WGFkiKCLNi9aB2TUzAMP, menuName: Wedding, starterMenu: null
+// ,
+// mainCourseMenu: null
+// ,
+// dessertMenu: null
+// ,
+// orderStatus: 0
+// }
