@@ -27,7 +27,7 @@ class OrderDataSource{
         'starterMenu': orderModel.starterMenu,
         'mainCourseMenu': orderModel.mainCourseMenu,
         'dessertMenu': orderModel.dessertMenu,
-        'orderStatus': OrderStatus.pending.index.toString(),
+        'orderStatus': OrderStatus.pending.index,
       });
       return 'Order Placed Successfully';
     }on FirebaseException catch(e){
