@@ -348,14 +348,15 @@ class _BookingScreenState extends State<BookingScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 12.h),
                       height: 74.h,
                       decoration: BoxDecoration(
-                        color: Theme.of(context).colorScheme.inversePrimary,
+                        color: Theme.of(context).colorScheme.background,
                         boxShadow: [
                           BoxShadow(
                               color:
                               Theme.of(context).primaryColorLight.withOpacity(0.25),
                               blurRadius: 12,
                               spreadRadius: 5,
-                              offset: const Offset(0, -1))
+                              offset: const Offset(0, -1),
+                          )
                         ],
                       ),
                       child: BuildButton(
