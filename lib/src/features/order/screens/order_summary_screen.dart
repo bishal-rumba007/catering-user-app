@@ -126,7 +126,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                       height: 72.h,
                       decoration: BoxDecoration(
-                        color: Colors.yellow.withOpacity(0.35),
+                        color: Colors.yellow.withAlpha(150),
                         borderRadius: BorderRadius.circular(14.r),
                       ),
                       child: Column(
@@ -170,7 +170,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
                         height: 76.h,
                         decoration: BoxDecoration(
-                          color: Colors.yellow.withOpacity(0.35),
+                          color: Colors.yellow.withAlpha(150),
                           borderRadius: BorderRadius.circular(14.r),
                         ),
                         child: Column(
@@ -226,7 +226,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   Expanded(
                     child: Row(
                       children: [
-                        const Icon(Icons.people_alt_rounded, size: 26, color: AppColor.primaryRed,),
+                        const Icon(Icons.people_alt_rounded, size: 24, color: AppColor.primaryRed,),
                         SizedBox(width: 10.w,),
                         Container(
                           padding:
@@ -418,7 +418,7 @@ class MySeparator extends StatelessWidget {
               width: dashWidth,
               height: dashHeight,
               child: DecoratedBox(
-                decoration: BoxDecoration(color: color),
+                decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface),
               ),
             );
           }),
@@ -427,23 +427,3 @@ class MySeparator extends StatelessWidget {
     );
   }
 }
-
-// {orderDetail: {
-// customerId: ,
-// customerName: Sanjay Gurung,
-// customerAddress: asdasd,
-// customerPhone: 9847523413, dietaryPref: , helpers: 2, orderDate: 2024-02-13, totalGuests: 30},
-// advancePayment: ,
-// price: 1499.0
-// ,
-// categoryId: 1
-// ,
-// categoryName: Wedding, categoryImage: ,
-// catererId: OGWCEB5C6fcAhCn8XjPnuQ66EUz1, menuId: WGFkiKCLNi9aB2TUzAMP, menuName: Wedding, starterMenu: null
-// ,
-// mainCourseMenu: null
-// ,
-// dessertMenu: null
-// ,
-// orderStatus: 0
-// }
