@@ -9,8 +9,13 @@ ThemeData darkMode = ThemeData(
   splashColor: AppColor.primaryRed.withOpacity(0.5),
   colorScheme: ColorScheme.dark(
     background: Colors.grey.shade900,
+    onBackground: AppColor.darkColor.withOpacity(0.4),
     primary: AppColor.primaryRed,
     secondary: AppColor.secondaryColor,
+    brightness: Brightness.dark,
+    surface: Colors.grey.shade800,
+    onSurface: const Color(0xFFf5f5f5),
+    surfaceVariant: Colors.grey.shade700,
   ),
   iconTheme: const IconThemeData(
     color: Colors.white,
@@ -34,12 +39,12 @@ ThemeData darkMode = ThemeData(
     ),
     displayMedium: GoogleFonts.inter(
       fontSize: 40.sp,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w700,
       color: AppColor.darkModeText,
     ),
     displaySmall: GoogleFonts.inter(
       fontSize: 36.sp,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: AppColor.darkModeText,
     ),
     headlineLarge: GoogleFonts.inter(
@@ -49,7 +54,7 @@ ThemeData darkMode = ThemeData(
     ),
     headlineMedium: GoogleFonts.inter(
       fontSize: 28.sp,
-      fontWeight: FontWeight.w400,
+      fontWeight: FontWeight.w600,
       color: AppColor.darkModeText,
     ),
     headlineSmall: GoogleFonts.inter(
@@ -134,12 +139,15 @@ ThemeData darkMode = ThemeData(
     contentPadding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
     border: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
-      borderSide: const BorderSide(color: AppColor.greyColor, width: 1.0),
+      borderSide: const BorderSide(color: AppColor.greyColor, width: 1.5),
     ),
     enabledBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
-      borderSide:
-          BorderSide(color: AppColor.greyColor.withOpacity(0.8), width: 1.0),
+      borderSide: BorderSide(color: Colors.grey.shade600, width: 1.5),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.r),
+      borderSide: BorderSide(color: Colors.grey.shade600, width: 1.5),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
@@ -156,17 +164,39 @@ ThemeData darkMode = ThemeData(
       color: AppColor.darkModeText,
     ),
     floatingLabelStyle: GoogleFonts.inter(
-      fontSize: 14.sp,
+      fontSize: 16.sp,
       fontWeight: FontWeight.w600,
       color: AppColor.primaryRed,
     ),
     errorBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
-      borderSide: const BorderSide(color: AppColor.setOrange, width: 1.5),
+      borderSide: const BorderSide(color: AppColor.primaryRed, width: 1.5),
     ),
     errorStyle: GoogleFonts.inter(
       fontSize: 14.sp,
       color: Colors.red,
+    ),
+  ),
+  chipTheme: ChipThemeData(
+    selectedColor: AppColor.primaryRed,
+    secondarySelectedColor: AppColor.primaryRed,
+    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+    labelStyle: GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    secondaryLabelStyle: GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    shape: RoundedRectangleBorder(
+      side: BorderSide(
+        color: Colors.grey.shade600,
+        width: 1.5,
+      ),
+      borderRadius: BorderRadius.circular(8.r),
     ),
   ),
 );
@@ -175,22 +205,32 @@ ThemeData lightMode = ThemeData(
   useMaterial3: true,
   brightness: Brightness.light,
   splashColor: AppColor.primaryRed.withOpacity(0.5),
-  colorScheme: const ColorScheme.light(
+  colorScheme: ColorScheme.light(
     background: AppColor.backGroundColor,
+    onBackground: AppColor.darkColor,
     primary: AppColor.primaryRed,
     secondary: AppColor.secondaryColor,
+    surface: Colors.white,
+    surfaceVariant: AppColor.backGroundColor,
   ),
   iconTheme: IconThemeData(
     color: AppColor.darkColor,
   ),
-  cardTheme: CardTheme(
+  disabledColor: AppColor.darkColor,
+  cardTheme: const CardTheme(
     color: Colors.white,
   ),
   appBarTheme: AppBarTheme(
-      titleTextStyle: GoogleFonts.inter(
-          fontSize: 18.sp,
-          fontWeight: FontWeight.w600,
-          color: AppColor.darkColor)),
+    backgroundColor: AppColor.backGroundColor,
+    titleTextStyle: GoogleFonts.inter(
+      fontSize: 18.sp,
+      fontWeight: FontWeight.w600,
+      color: AppColor.darkColor,
+    ),
+    actionsIconTheme: IconThemeData(
+      color: AppColor.darkColor.withOpacity(0.8),
+    ),
+  ),
   textTheme: TextTheme(
     displayLarge: GoogleFonts.inter(
       fontSize: 42.sp,
@@ -310,19 +350,20 @@ ThemeData lightMode = ThemeData(
     ),
   ),
   elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-    disabledBackgroundColor: AppColor.primaryRed.withOpacity(0.5),
-    minimumSize: Size(double.infinity, 50.h),
-    textStyle: GoogleFonts.inter(
-      fontWeight: FontWeight.w600,
-      fontSize: 16.sp,
-      color: Colors.white,
+    style: ElevatedButton.styleFrom(
+      disabledBackgroundColor: AppColor.primaryRed.withOpacity(0.5),
+      minimumSize: Size(double.infinity, 50.h),
+      textStyle: GoogleFonts.inter(
+        fontWeight: FontWeight.w600,
+        fontSize: 16.sp,
+        color: Colors.white,
+      ),
+      backgroundColor: AppColor.primaryRed,
+      foregroundColor: Colors.white,
+      elevation: 2,
+      padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
     ),
-    backgroundColor: AppColor.primaryRed,
-    foregroundColor: Colors.white,
-    elevation: 2,
-    padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 14.h),
-  )),
+  ),
   inputDecorationTheme: InputDecorationTheme(
     contentPadding: EdgeInsets.symmetric(vertical: 14.h, horizontal: 16.w),
     border: OutlineInputBorder(
@@ -333,6 +374,10 @@ ThemeData lightMode = ThemeData(
       borderRadius: BorderRadius.circular(8.r),
       borderSide:
           BorderSide(color: AppColor.greyColor.withOpacity(0.8), width: 1.0),
+    ),
+    disabledBorder: OutlineInputBorder(
+      borderRadius: BorderRadius.circular(8.r),
+      borderSide: const BorderSide(color: AppColor.greyColor, width: 1.0),
     ),
     focusedBorder: OutlineInputBorder(
       borderRadius: BorderRadius.circular(8.r),
@@ -368,6 +413,28 @@ ThemeData lightMode = ThemeData(
         fontSize: 14.sp,
         fontWeight: FontWeight.w600,
       ),
+    ),
+  ),
+  chipTheme: ChipThemeData(
+    selectedColor: AppColor.primaryRed,
+    secondarySelectedColor: AppColor.primaryRed,
+    padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
+    labelStyle: GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    secondaryLabelStyle: GoogleFonts.inter(
+      fontSize: 14.sp,
+      fontWeight: FontWeight.w600,
+      color: Colors.white,
+    ),
+    shape: RoundedRectangleBorder(
+      side: const BorderSide(
+        color: AppColor.greyColor,
+        width: 1.5,
+      ),
+      borderRadius: BorderRadius.circular(8.r),
     ),
   ),
 );
