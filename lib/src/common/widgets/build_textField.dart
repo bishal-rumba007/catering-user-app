@@ -107,6 +107,7 @@ class BuildTextField extends StatelessWidget {
     this.maxLine,
     this.autoFocus = false,
     this.isEnabled = true,
+    this.onChanged,
   }) : super(key: key);
 
   final TextEditingController controller;
@@ -119,6 +120,7 @@ class BuildTextField extends StatelessWidget {
   final int? maxLine;
   final bool autoFocus;
   final bool isEnabled;
+  final void Function(String)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -139,6 +141,7 @@ class BuildTextField extends StatelessWidget {
         hintText: hintText,
         suffixIcon: suffixIconWidget,
       ),
+      onChanged: onChanged,
     );
   }
 }
