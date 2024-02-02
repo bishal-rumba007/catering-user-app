@@ -22,7 +22,7 @@ class OrderDetailScreen extends ConsumerStatefulWidget {
 
 class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
   final _textController = TextEditingController();
-  final _reasonController = TextEditingController();
+  TextEditingController reasonController = TextEditingController();
   late String formattedDate;
 
   @override
@@ -359,21 +359,26 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                 BuildTextField(
                   maxLine: 3,
                   autoFocus: true,
-                  controller: _reasonController,
+                  controller: reasonController,
                   labelText: 'Reason',
                   hintText: 'Enter reason for cancellation',
+                  onChanged: (value) {
+                    setState(() {});
+                    reasonController.text = value;
+                  },
                 ),
                 SizedBox(
                   height: 30.h,
                 ),
                 BuildButton(
-                  onPressed: _reasonController.text.isEmpty
+                  onPressed: reasonController.text.isEmpty
                       ? null
                       : () {
                           buildLoadingDialog(context, 'Rejecting');
                           ref.read(cancelOrderProvider(orderData.orderId));
                           Navigator.pop(context);
                           Navigator.pop(context);
+
                         },
                   buttonWidget: const Text('Submit'),
                 ),
