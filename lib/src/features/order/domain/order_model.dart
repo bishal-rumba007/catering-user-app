@@ -58,7 +58,7 @@ class OrderModel {
       starterMenu: List<String>.from(json['starterMenu'] as List<dynamic>),
       mainCourseMenu: List<String>.from(json['mainCourseMenu'] as List<dynamic>),
       dessertMenu: List<String>.from(json['dessertMenu'] as List<dynamic>),
-      orderStatus: OrderStatus.values[int.parse(json['orderStatus'])],
+      orderStatus: OrderStatus.values[json['orderStatus'] as int],
       user: json['user'],
     );
   }
