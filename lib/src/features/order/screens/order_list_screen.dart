@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:catering_user_app/src/features/order/data/order_provider.dart';
 import 'package:catering_user_app/src/features/order/screens/widgets/order_card.dart';
 import 'package:flutter/material.dart';
@@ -18,10 +16,27 @@ class OrderListScreen extends ConsumerWidget {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Orders'),
+          actions: [
+            IconButton(
+              onPressed: () {
+                Navigator.pushNamed(context, '/home');
+              },
+              icon: const Icon(Icons.add),
+            ),
+          ],
         ),
         body: orderData.when(
           data: (data) {
-            return Padding(
+            return data.isEmpty ? Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text('No Orders Yet', style: Theme.of(context).textTheme.titleSmall,),
+                  SizedBox(height: 10.h,),
+                  Text('You have not placed any orders yet', style: Theme.of(context).textTheme.bodyLarge,),
+                ],
+              ),
+            ) : Padding(
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: ListView.separated(
                 padding: EdgeInsets.only(top: 14.h),
