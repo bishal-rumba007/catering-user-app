@@ -29,11 +29,10 @@ class MenuDataSource{
 
   Future<String?> getCategoryImage(String categoryId) async {
     try {
-      final categoriesSnapshot = await _categoryDb.where('categoryId', isEqualTo: categoryId).get();
+      final categoriesSnapshot = await _categoryDb.doc(categoryId).get();
 
-      if (categoriesSnapshot.docs.isNotEmpty) {
-        final matchingCategory = categoriesSnapshot.docs.first;
-        return matchingCategory['imageUrl'];
+      if (categoriesSnapshot.exists) {
+        return categoriesSnapshot['imageUrl'];
       } else {
         return null;
       }
