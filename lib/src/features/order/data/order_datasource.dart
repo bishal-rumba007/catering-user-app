@@ -123,7 +123,7 @@ class OrderDataSource{
   Future<String> cancelOrder({required String orderId}) async {
     try {
       await _orderDb.doc(orderId).delete();
-      return 'Order cancelled';
+      return 'Order rejected';
     } on FirebaseException catch (err) {
       throw '$err';
     }
