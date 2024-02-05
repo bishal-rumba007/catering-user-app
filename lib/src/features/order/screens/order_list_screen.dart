@@ -6,11 +6,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
-class OrderListScreen extends ConsumerWidget {
+class OrderListScreen extends ConsumerStatefulWidget {
   const OrderListScreen({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<OrderListScreen> createState() => _OrderListScreenState();
+}
+
+class _OrderListScreenState extends ConsumerState<OrderListScreen> {
+  @override
+  Widget build(BuildContext context) {
     final orderData = ref.watch(orderProvider);
     return Scaffold(
         appBar: AppBar(
@@ -25,6 +30,7 @@ class OrderListScreen extends ConsumerWidget {
             ),
           ],
         ),
+
         body: orderData.when(
           data: (data) {
             return data.isEmpty ? Center(
