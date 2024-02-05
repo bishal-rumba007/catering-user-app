@@ -422,12 +422,12 @@ ThemeData lightMode = ThemeData(
     labelStyle: GoogleFonts.inter(
       fontSize: 14.sp,
       fontWeight: FontWeight.w600,
-      color: Colors.white,
+      color: AppColor.darkColor,
     ),
     secondaryLabelStyle: GoogleFonts.inter(
       fontSize: 14.sp,
       fontWeight: FontWeight.w600,
-      color: Colors.white,
+      color: AppColor.darkColor,
     ),
     shape: RoundedRectangleBorder(
       side: const BorderSide(
