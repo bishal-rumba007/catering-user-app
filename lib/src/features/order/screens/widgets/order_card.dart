@@ -6,22 +6,27 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
-class OrderCard extends StatelessWidget {
+class OrderCard extends StatefulWidget {
   final OrderModel order;
   const OrderCard({
     super.key, required this.order,
   });
 
   @override
+  State<OrderCard> createState() => _OrderCardState();
+}
+
+class _OrderCardState extends State<OrderCard> {
+  @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final totalPrice = double.parse(order.price) * double.parse(order.orderDetail.totalGuests);
+    final totalPrice = double.parse(widget.order.price) * double.parse(widget.order.orderDetail.totalGuests);
     return InkWell(
       onTap: () {
         Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (_) => OrderDetailScreen(orderId: order.orderId),
+              builder: (_) => OrderDetailScreen(orderId: widget.order.orderId),
             ),
         );
       },
@@ -40,7 +45,7 @@ class OrderCard extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10.r),
                   image: DecorationImage(
                     fit: BoxFit.cover,
-                    image: NetworkImage(order.categoryImage)
+                    image: NetworkImage(widget.order.categoryImage)
                   )
                 ),
               ),
@@ -50,7 +55,7 @@ class OrderCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${order.menuName} Order',
+                      '${widget.order.menuName} Order',
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                           fontSize: 17.sp,
                           fontWeight: FontWeight.w700
@@ -68,7 +73,7 @@ class OrderCard extends StatelessWidget {
                       child: Row(
                         children: [
                           Text(
-                            'Rs. ${double.parse(order.price)}/person',
+                            'Rs. ${double.parse(widget.order.price)}/person',
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w600
@@ -78,7 +83,7 @@ class OrderCard extends StatelessWidget {
                           const Icon(Icons.people),
                           SizedBox(width: 6.w,),
                           Text(
-                            order.orderDetail.totalGuests,
+                            widget.order.orderDetail.totalGuests,
                             style: Theme.of(context).textTheme.bodySmall?.copyWith(
                                 fontSize: 13.sp,
                                 fontWeight: FontWeight.w600
@@ -89,7 +94,7 @@ class OrderCard extends StatelessWidget {
                     ),
                     const Spacer(),
                     Text(
-                      order.orderDetail.dietaryPref,
+                      widget.order.orderDetail.dietaryPref,
                       style: Theme.of(context).textTheme.bodySmall?.copyWith(
                           fontSize: 13.sp,
                           fontWeight: FontWeight.w600
