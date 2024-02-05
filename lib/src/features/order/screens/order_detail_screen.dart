@@ -28,6 +28,9 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
   @override
   void initState() {
     super.initState();
+    reasonController.addListener(() {
+      setState(() {});
+    });
   }
 
   @override
@@ -362,10 +365,6 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                   controller: reasonController,
                   labelText: 'Reason',
                   hintText: 'Enter reason for cancellation',
-                  onChanged: (value) {
-                    setState(() {});
-                    reasonController.text = value;
-                  },
                 ),
                 SizedBox(
                   height: 30.h,
@@ -377,8 +376,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           buildLoadingDialog(context, 'Rejecting');
                           ref.read(cancelOrderProvider(orderData.orderId));
                           Navigator.pop(context);
-                          Navigator.pop(context);
-
+                          Navigator.pushNamed(context, Routes.orderListRoute);
                         },
                   buttonWidget: const Text('Submit'),
                 ),
