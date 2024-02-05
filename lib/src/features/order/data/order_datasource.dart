@@ -1,20 +1,16 @@
-
-
-
 import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
-class OrderDataSource{
-
+class OrderDataSource {
   final _userDb = FirebaseFirestore.instance.collection('users');
   final _orderDb = FirebaseFirestore.instance.collection('orders');
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
-  Future<String> placeOrder(OrderModel orderModel) async{
-    try{
+  Future<String> placeOrder(OrderModel orderModel) async {
+    try {
       await _orderDb.add({
         'orderInfo': orderModel.orderDetail.toJson(),
         'advancePayment': '3000',
@@ -30,36 +26,30 @@ class OrderDataSource{
         'orderStatus': OrderStatus.pending.index,
       });
       return 'Order Placed Successfully';
-    }on FirebaseException catch(e){
+    } on FirebaseException catch (e) {
       throw e.message.toString();
     }
   }
 
   Stream<List<OrderModel>> getOrdersStream() {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
     try {
-      return _userDb.doc(uid).snapshots().asyncMap((userData) async {
-        final userId = userData.id;
-
-        final response = await _orderDb
-            .where('orderInfo.customerId', isEqualTo: userId)
-            .get();
-
-        final orderList = await Future.wait(response.docs.map((doc) async {
-          final json = doc.data();
+      final data = _orderDb.where('orderInfo.customerId', isEqualTo: uid).snapshots();
+      final response = data.asyncMap((event) async {
+        final data = Future.wait(event.docs.map((e) async {
+          final json = e.data();
           final categoryImage = await getCategoryImage(json['categoryId']);
           final userData = await getUserDetail(json['orderInfo']['customerId']);
           return OrderModel.fromJson({
             ...json,
-            'orderId': doc.id,
+            'orderId': e.id,
             'categoryImage': categoryImage,
             'user': userData,
           });
-        }
-        )
-        );
-
-        return orderList;
+        }).toList());
+        return data;
       });
+    return response;
     } on FirebaseException catch (error) {
       throw '$error';
     }
@@ -83,8 +73,8 @@ class OrderDataSource{
     }
   }
 
-  Future<types.User> getUserDetail(String userId) async{
-    try{
+  Future<types.User> getUserDetail(String userId) async {
+    try {
       final snapshot = await _userDb.doc(userId).get();
       if (snapshot.exists) {
         final json = snapshot.data() as Map<String, dynamic>;
@@ -100,7 +90,7 @@ class OrderDataSource{
       } else {
         throw 'User not found';
       }
-    }on FirebaseException catch (error) {
+    } on FirebaseException catch (error) {
       throw '$error';
     }
   }
@@ -128,5 +118,4 @@ class OrderDataSource{
       throw '$err';
     }
   }
-
 }
