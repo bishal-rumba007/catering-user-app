@@ -1,9 +1,6 @@
-import 'package:catering_user_app/src/common/widgets/build_button.dart';
-import 'package:catering_user_app/src/common/widgets/build_textField.dart';
+import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
-import 'package:catering_user_app/src/features/auth/screens/login_screen.dart';
-import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -129,11 +126,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               if(!context.mounted) return;
                               buildErrorDialog(context, "Couldn't create account!");
                             } else {
-                              navigator.push(
-                                MaterialPageRoute(
-                                builder: (_) => const HomeScreen(),
-                                ),
-                              );
+                              navigator.pushNamed(Routes.homeRoute);
                             }
                           }
                         },
@@ -156,8 +149,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   ),
                   TextButton(
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (
-                          _) => const LoginScreen(),));
+                      Navigator.pushNamed(context, Routes.loginRoute);
                     },
                     child: const Text('Login instead'),
                   )

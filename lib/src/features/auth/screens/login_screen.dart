@@ -1,9 +1,7 @@
 
 import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
-import 'package:catering_user_app/src/features/auth/screens/sign_up_screen.dart';
 import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
-import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -158,7 +156,7 @@ class _LoginScreenState extends State<LoginScreen> {
                              if(!context.mounted) return;
                              buildErrorDialog(context, response);
                            }else{
-                             navigator.push(MaterialPageRoute(builder: (_) => const HomeScreen(),));
+                             navigator.pushNamed(Routes.homeRoute);
                            }
                          }
                        },
@@ -173,7 +171,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   TextButton(
                     onPressed: (){
-                      Navigator.push(context, MaterialPageRoute(builder: (_) => const SignUpScreen(),));
+                      Navigator.pushNamed(context, Routes.registerRoute);
                     },
                     child: const Text('Create an account'),
                   )
