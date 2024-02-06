@@ -90,12 +90,7 @@ class MyDrawer extends ConsumerWidget {
                 ),
                 onTap: () {
                   Navigator.pop(context);
-                  // Navigator.push(
-                  //     context,
-                  //     MaterialPageRoute(
-                  //         builder: (_) => const CreateMenuScreen(),
-                  //     ),
-                  // );
+                  Navigator.pushNamed(context, '/recent-chat');
                 },
               ),
               ListTile(
