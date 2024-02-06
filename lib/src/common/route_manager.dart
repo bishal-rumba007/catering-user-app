@@ -2,6 +2,8 @@
 
 import 'package:catering_user_app/src/features/auth/screens/login_screen.dart';
 import 'package:catering_user_app/src/features/auth/screens/sign_up_screen.dart';
+import 'package:catering_user_app/src/features/chat/screens/chat_screen.dart';
+import 'package:catering_user_app/src/features/chat/screens/recent_chat_screen.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dart';
 import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
@@ -20,6 +22,8 @@ class Routes {
   static const String notificationRoute = '/notification';
   static const String profileRoute = '/profile';
   static const String orderListRoute = '/order-list';
+  static const String recentChats = '/recent-chat';
+  static const String chatRoute = '/chat';
 }
 
 class RouteGenerator{
@@ -41,6 +45,10 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
         case Routes.orderListRoute:
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
+      case Routes.recentChats:
+        return MaterialPageRoute(builder: (_) => const RecentChatScreen());
+      // case Routes.chatRoute:
+      //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: arguement as Room));
       default:
         return unDefinedRoute();
     }
