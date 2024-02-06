@@ -1,5 +1,4 @@
 import 'package:catering_user_app/src/common/common_export.dart';
-import 'package:catering_user_app/src/features/auth/screens/login_screen.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,7 +11,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ScreenUtilInit(
-      designSize: const Size(412, 915),
+      designSize: const Size(393, 851),
       builder: (context, child) {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
