@@ -201,7 +201,6 @@ class _BookingScreenState extends State<BookingScreen> {
                             ),
                             Container(
                               padding: EdgeInsets.all(8.w),
-                              height: 98.h,
                               width: double.infinity,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(12.r),
