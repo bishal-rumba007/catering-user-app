@@ -74,8 +74,8 @@ class PopularMenuCard extends StatelessWidget {
                             left: 10.w,
                             bottom: 10.h,
                             child: Container(
+                              padding: EdgeInsets.symmetric(horizontal: 8.w,),
                               height: 40.h,
-                              width: 120.w,
                               decoration: BoxDecoration(
                                 color: AppColor.primaryRed.withOpacity(0.80),
                                 borderRadius: BorderRadius.circular(12.r),
@@ -85,7 +85,7 @@ class PopularMenuCard extends StatelessWidget {
                                     '${menuData[index].categoryName} Menu',
                                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                                         color: Colors.white,
-                                        fontSize: 14.sp,
+                                        fontSize: 12.sp,
                                     )
                                 ),
                               ),
@@ -93,7 +93,7 @@ class PopularMenuCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 6.h,),
+                      SizedBox(height: 4.h,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -114,10 +114,11 @@ class PopularMenuCard extends StatelessWidget {
                           ),
                         ],
                       ),
-                      SizedBox(height: 2.h,),
                       Text(
                         'Per person',
-                        style: Theme.of(context).textTheme.bodyMedium,
+                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontSize: 13.sp,
+                        ),
                       ),
                     ],
                   ),
