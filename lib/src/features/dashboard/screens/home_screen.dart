@@ -1,10 +1,10 @@
 
+import 'package:catering_user_app/src/api/firebase_api.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/carousel_card.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/category_card.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/menu_widget.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/widgets/my_drawer.dart';
 import 'package:catering_user_app/src/features/menu/data/menu_data_provider.dart';
-import 'package:catering_user_app/src/shared/data/category_provider.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -25,6 +25,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    FirebaseApi().initPushNotification();
   }
 
   @override
