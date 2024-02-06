@@ -17,22 +17,6 @@ class _MenuScreenState extends State<MenuScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Menus'),
-        actions: [
-          IconButton(
-            onPressed: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(
-              //     builder: (_) => const CreateMenuScreen(),
-              //   ),
-              // );
-            },
-            icon: const Icon(
-              Icons.add,
-              size: 26,
-            ),
-          )
-        ],
       ),
       body: SafeArea(
         child: Padding(
@@ -180,7 +164,7 @@ class _MenuCardState extends State<MenuCard> {
                     elevation: 2.0,
                     child: Container(
                       padding: EdgeInsets.all(10.w),
-                      height: 110.h,
+                      height: 120.h,
                       width: double.infinity,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12.r),
