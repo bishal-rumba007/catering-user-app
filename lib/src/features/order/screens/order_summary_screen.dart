@@ -124,7 +124,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   Expanded(
                     child: Container(
                       padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
-                      height: 72.h,
+                      height: 74.h,
                       decoration: BoxDecoration(
                         color: Colors.yellow.withAlpha(150),
                         borderRadius: BorderRadius.circular(14.r),

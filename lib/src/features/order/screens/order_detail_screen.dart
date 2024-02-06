@@ -301,9 +301,14 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                     final scaffoldMessage = ScaffoldMessenger.of(context);
                                     final response = await ref.read(roomProvider).createRoom(data.user);
                                     if(response != null){
+                                      final otherUser = response.users.firstWhere((element) => element.id != data.user.id);
                                       navigator.push(
                                         MaterialPageRoute(
-                                          builder: (_) => ChatScreen(room: response),
+                                          builder: (_) => ChatScreen(
+                                            room: response,
+                                            token: otherUser.metadata?['deviceToken'],
+                                            name: otherUser.firstName!,
+                                          ),
                                         ),
                                       );
                                     }else{
