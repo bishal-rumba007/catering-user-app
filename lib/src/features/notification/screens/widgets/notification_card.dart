@@ -1,16 +1,20 @@
+import 'package:catering_user_app/src/common/common_export.dart';
+import 'package:catering_user_app/src/features/notification/data/notification_datasource.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 class NotificationCard extends StatelessWidget {
+  final NotificationModel notification;
   const NotificationCard({
-    super.key,
+    super.key, required this.notification,
   });
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Container(
-      padding: EdgeInsets.only(bottom: 10.h),
+      padding: EdgeInsets.only(bottom: 14.h),
       decoration: BoxDecoration(
         border: Border(
           bottom: BorderSide(
@@ -23,11 +27,11 @@ class NotificationCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(right: 8.w, left: 2.w),
+            margin: EdgeInsets.only(top: 5.h, right: 16.w, left: 2.w, bottom: 2.h),
             height: 12.h,
             width: 12.h,
             decoration: BoxDecoration(
-              color: Colors.red,
+              color: notification.isRead ? theme.colorScheme.inverseSurface : Colors.red,
               borderRadius: BorderRadius.circular(12.r),
             ),
           ),
@@ -36,22 +40,39 @@ class NotificationCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "User123 Requested",
+                Text(
+                  notification.title,
+                  style: theme.textTheme.labelLarge,
+                ),
+                SizedBox(
+                  height: 3.h,
+                ),
+                Text(
+                  notification.body,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
                 ),
                 SizedBox(
                   height: 6.h,
                 ),
-                const Text(
-                  "notification.body",
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                )
+                Row(
+                  children: [
+                    Icon(
+                      Icons.access_time,
+                      size: 18.sp,
+                      color: theme.colorScheme.onSurface,
+                    ),
+                    SizedBox(
+                      width: 6.w,
+                    ),
+                    Text(
+                      formatDistanceToNowStrict(notification.createdAt),
+                      style: theme.textTheme.labelMedium,
+                    ),
+                  ],
+                ),
               ],
             ),
-          ),
-          const Text(
-            '21 hours ago',
           ),
         ],
       ),
