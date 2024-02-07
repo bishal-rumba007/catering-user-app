@@ -1,7 +1,7 @@
 import 'dart:io';
 
+import 'package:catering_user_app/src/features/chat/data/chat_datasource.dart';
 import 'package:catering_user_app/src/features/chat/data/chat_provider.dart';
-import 'package:dio/dio.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -24,34 +24,36 @@ class ChatScreen extends StatelessWidget {
       builder: (context, ref, child) {
         final isLoad = ref.watch(loadingProvider);
         return Scaffold(
+          appBar: AppBar(
+            automaticallyImplyLeading: true,
+            title: Text(name),
+          ),
           body: SafeArea(
             child: StreamBuilder<List<types.Message>>(
               initialData: const [],
               stream: FirebaseChatCore.instance.messages(room),
               builder: (context, snapshot) {
+                final currentUserName = room.users.firstWhere(
+                  (element) =>
+                      element.id ==
+                      FirebaseChatCore.instance.firebaseUser?.uid,
+                ).firstName;
                 return Chat(
                   messages: snapshot.data ?? [],
                   onSendPressed: (value) async {
-                    final dio = Dio();
                     FirebaseChatCore.instance.sendMessage(value, room.id);
-                    try{
-                      await dio.post('https://fcm.googleapis.com/fcm/send', data: {
-                        "to": token,
-                        "priority": "High",
-                        "default_notification_channel_id": "high_importance_channel",
-                        "notification":{
-                          "body": value.text.trim(),
-                          "title":"New Message",
-                        },
-
-                      }, options: Options(
-                          headers:  {
-                            'Authorization': 'key=AAAAD8GZyWs:APA91bELjX2lfw6syAbhStEhvC-qJ3FOsVdZurTxwHMoIuALvz-Hz9pMw2OKhGCFgItEREtymGZgyn9YTe1Dp0oAnEyurWBLqK5M42MfeeKRF7vJZ7zBgX88MBQDM9txvoX8DGMDzAPm'
-                          }
-                      ));
-                    }catch(err){
-                      print(err);
-                    }
+                    await ChatDataSource().sendNotification(
+                      title: '$currentUserName',
+                      message: value.text,
+                      notificationData: {
+                        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                        'id': '1',
+                        'room': room.id,
+                        'name': name,
+                        'type': 'chat',
+                        'route': 'chat',
+                      },
+                    );
                   },
                   isAttachmentUploading: isLoad,
                   onAttachmentPressed: () async {
