@@ -41,3 +41,7 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Protected Keys and URls
+/lib/src/api/api_keys.dart
+/lib/src/api/endpoints.dart
