@@ -1,4 +1,5 @@
 import 'package:catering_user_app/src/features/order/data/order_provider.dart';
+import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/screens/widgets/order_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -33,7 +34,8 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
 
         body: orderData.when(
           data: (data) {
-            return data.isEmpty ? Center(
+            final orderList = data.where((element) => element.orderStatus != OrderStatus.cancelled).toList();
+            return orderList.isEmpty ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -46,9 +48,9 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
               padding: EdgeInsets.symmetric(horizontal: 10.w),
               child: ListView.separated(
                 padding: EdgeInsets.only(top: 14.h),
-                itemCount: data.length,
+                itemCount: orderList.length,
                 itemBuilder: (context, index) {
-                  return OrderCard(order: data[index],);
+                  return OrderCard(order: orderList[index],);
                 },
                 separatorBuilder: (context, index) => SizedBox(height: 14.h,),
               ),

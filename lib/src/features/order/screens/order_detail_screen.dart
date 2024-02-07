@@ -1,7 +1,7 @@
 import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
-import 'package:catering_user_app/src/features/chat/data/chat_provider.dart';
-import 'package:catering_user_app/src/features/chat/screens/chat_screen.dart';
+import 'package:catering_user_app/src/features/chat/data/chat_datasource.dart';
+import 'package:catering_user_app/src/features/order/data/order_datasource.dart';
 import 'package:catering_user_app/src/features/order/data/order_provider.dart';
 import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/screens/widgets/common_function.dart';
@@ -21,6 +21,7 @@ class OrderDetailScreen extends ConsumerStatefulWidget {
 }
 
 class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
+  final formKey = GlobalKey<FormState>();
   final _textController = TextEditingController();
   TextEditingController reasonController = TextEditingController();
   late String formattedDate;
@@ -299,23 +300,24 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                   onPressed: () async{
                                     final navigator = Navigator.of(context);
                                     final scaffoldMessage = ScaffoldMessenger.of(context);
-                                    final response = await ref.read(roomProvider).createRoom(data.user);
-                                    if(response != null){
-                                      final otherUser = response.users.firstWhere((element) => element.id != data.user.id);
-                                      navigator.push(
-                                        MaterialPageRoute(
-                                          builder: (_) => ChatScreen(
-                                            room: response,
-                                            token: otherUser.metadata?['deviceToken'],
-                                            name: otherUser.firstName!,
-                                          ),
-                                        ),
-                                      );
-                                    }else{
-                                      scaffoldMessage.showSnackBar(
-                                        const SnackBar(duration: Duration(milliseconds: 1500) , content: Text("something went wrong")),
-                                      );
-                                    }
+                                    navigator.pushNamed('/recent-chat');
+                                    ///Todo: Figure out logic for chat screen route
+                                    //final response = await ref.read(roomProvider).createRoom(data.user);
+                                    // if(response != null){
+                                    //   navigator.push(
+                                    //     MaterialPageRoute(
+                                    //       builder: (_) => ChatScreen(
+                                    //         room: response,
+                                    //         token: otherUser.metadata?['deviceToken'],
+                                    //         name: otherUser.firstName!,
+                                    //       ),
+                                    //     ),
+                                    //   );
+                                    // }else{
+                                    //   scaffoldMessage.showSnackBar(
+                                    //     const SnackBar(duration: Duration(milliseconds: 1500) , content: Text("something went wrong")),
+                                    //   );
+                                    // }
                                   },
                                   buttonWidget: const Text('Message'),
                                 )
@@ -361,34 +363,60 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
           padding: MediaQuery.of(context).viewInsets,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                BuildTextField(
-                  maxLine: 3,
-                  autoFocus: true,
-                  controller: reasonController,
-                  labelText: 'Reason',
-                  hintText: 'Enter reason for cancellation',
-                ),
-                SizedBox(
-                  height: 30.h,
-                ),
-                BuildButton(
-                  onPressed: reasonController.text.isEmpty
-                      ? null
-                      : () {
-                          buildLoadingDialog(context, 'Rejecting');
-                          ref.read(cancelOrderProvider(orderData.orderId));
-                          Navigator.pop(context);
-                          Navigator.pushNamed(context, Routes.orderListRoute);
-                        },
-                  buttonWidget: const Text('Submit'),
-                ),
-                SizedBox(
-                  height: 50.h,
-                )
-              ],
+            child: Form(
+              key: formKey,
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  BuildTextField(
+                    maxLine: 3,
+                    autoFocus: true,
+                    controller: reasonController,
+                    labelText: 'Reason',
+                    hintText: 'Enter reason for cancellation',
+                    validator: (value) {
+                      if (value!.isEmpty) {
+                        return 'Please enter a reason';
+                      }
+                      return null;
+                    },
+                  ),
+                  SizedBox(
+                    height: 30.h,
+                  ),
+                  BuildButton(
+                    onPressed: () async{
+                      final navigator = Navigator.of(context);
+                      if(formKey.currentState!.validate()){
+                        buildLoadingDialog(context, 'Cancelling Order...');
+                        final response = await ref.read(cancelOrderProvider(orderData.orderId).future);
+                        if(response == "Order Cancelled"){
+                          await ChatDataSource().sendNotification(
+                              title: 'Order Cancelled',
+                              message: 'Your order has been cancelled',
+                              notificationData: {
+                                'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                                'type': 'order',
+                                'route': 'notification',
+                              }
+                          );
+                          await OrderDataSource().cancelNotification(
+                            orderModel: orderData,
+                            reason: reasonController.text.trim(),
+                          );
+                        }
+                        navigator.pop();
+                        navigator.pop();
+                        navigator.pop();
+                      }
+                      },
+                    buttonWidget: const Text('Submit'),
+                  ),
+                  SizedBox(
+                    height: 50.h,
+                  )
+                ],
+              ),
             ),
           ),
         );
