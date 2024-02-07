@@ -6,6 +6,7 @@ enum OrderStatus {
   accepted,
   rejected,
   completed,
+  cancelled,
 }
 
 class OrderModel {

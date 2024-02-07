@@ -7,6 +7,7 @@ class OrderDataSource {
   final _userDb = FirebaseFirestore.instance.collection('users');
   final _orderDb = FirebaseFirestore.instance.collection('orders');
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
+  final _notificationDb = FirebaseFirestore.instance.collection('notifications');
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<String> placeOrder(OrderModel orderModel) async {
@@ -112,8 +113,32 @@ class OrderDataSource {
 
   Future<String> cancelOrder({required String orderId}) async {
     try {
-      await _orderDb.doc(orderId).delete();
-      return 'Order rejected';
+      await _orderDb.doc(orderId).update({
+        'orderStatus': OrderStatus.cancelled.index,
+      });
+      return 'Order Cancelled';
+    } on FirebaseException catch (err) {
+      throw '$err';
+    }
+  }
+
+  Future<String> cancelNotification({required OrderModel orderModel, required String reason}) async {
+    try {
+      await _notificationDb.add({
+        'title': 'Order Cancelled',
+        'body': 'Your order for ${orderModel.menuName} has been cancelled',
+        'notificationType': 'order',
+        'orderId': orderModel.orderId,
+        'senderId': orderModel.orderDetail.customerId,
+        'receiverId': orderModel.catererId,
+        'status': 'unread',
+        'createdAt': DateTime.now().microsecondsSinceEpoch.toString(),
+        'data': {
+          'reason': reason,
+          'orderInfo': orderModel.toJson()
+        },
+      });
+      return 'Order cancelled';
     } on FirebaseException catch (err) {
       throw '$err';
     }
