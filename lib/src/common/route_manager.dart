@@ -2,7 +2,6 @@
 
 import 'package:catering_user_app/src/features/auth/screens/login_screen.dart';
 import 'package:catering_user_app/src/features/auth/screens/sign_up_screen.dart';
-import 'package:catering_user_app/src/features/chat/screens/chat_screen.dart';
 import 'package:catering_user_app/src/features/chat/screens/recent_chat_screen.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dart';
 import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
@@ -47,8 +46,9 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
       case Routes.recentChats:
         return MaterialPageRoute(builder: (_) => const RecentChatScreen());
-      // case Routes.chatRoute:
-      //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: arguement as Room));
+      ///Todo: Figure out route that requires parameters
+        // case Routes.chatRoute:
+      //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: argument,));
       default:
         return unDefinedRoute();
     }
