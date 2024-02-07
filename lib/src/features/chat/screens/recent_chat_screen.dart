@@ -13,6 +13,7 @@ class RecentChatScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final currentUser =  FirebaseAuth.instance.currentUser!.uid;
+    final theme = Theme.of(context);
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: true,
@@ -25,15 +26,18 @@ class RecentChatScreen extends StatelessWidget {
             return roomData.when(
               data: (data){
                 return Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 10.h),
                   child: ListView.builder(
                     itemCount: data.length,
                     itemBuilder: (context, index) {
+                      final otherUser = data[index].users.firstWhere((element) => element.id != currentUser);
+                      DateTime dateTime = DateTime.fromMillisecondsSinceEpoch(data[index].updatedAt!);
+                      String timeComponent = "${dateTime.hour.toString().padLeft(2, '0')}:${dateTime.minute.toString().padLeft(2, '0')}";
+                      String amOrPm = dateTime.hour < 12 ? "AM" : "PM";
                       return Card(
                         elevation: 0,
                         child: ListTile(
                           onTap: () {
-                            final otherUser = data[index].users.firstWhere((element) => element.id != currentUser );
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) => ChatScreen(
                                 room: data[index],
@@ -45,8 +49,15 @@ class RecentChatScreen extends StatelessWidget {
                           leading: CircleAvatar(
                             child: Text(data[index].name!.substring(0, 1), style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
                           ),
-                          title: Text(data[index].name!, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w600),),
-                          subtitle: Text(data[index].name!, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w400),),
+                          title: Text(data[index].name!, style: theme.textTheme.bodyLarge,),
+                          subtitle: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(otherUser.metadata?['role'], style: theme.textTheme.labelSmall,),
+                              const SizedBox(width: 10,),
+                              Text('$timeComponent $amOrPm', style: theme.textTheme.labelSmall,),
+                            ],
+                          ),
                         ),
                       );
                     },
