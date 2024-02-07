@@ -16,6 +16,7 @@ ThemeData darkMode = ThemeData(
     surface: Colors.grey.shade800,
     onSurface: const Color(0xFFf5f5f5),
     surfaceVariant: Colors.grey.shade700,
+    inverseSurface: Colors.grey.shade50,
   ),
   iconTheme: const IconThemeData(
     color: Colors.white,
@@ -212,6 +213,7 @@ ThemeData lightMode = ThemeData(
     secondary: AppColor.secondaryColor,
     surface: Colors.white,
     surfaceVariant: AppColor.backGroundColor,
+    inverseSurface: Colors.grey.shade400,
   ),
   iconTheme: IconThemeData(
     color: AppColor.darkColor,
