@@ -1,15 +1,28 @@
 import 'dart:convert';
 
+import 'package:catering_user_app/src/app.dart';
 import 'package:catering_user_app/src/shared/data/fcm_token_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
-Future<void> handleBackgroundMessage(RemoteMessage message) async {
+Future<void> handleBackgroundMessage(RemoteMessage? message) async {
   await Firebase.initializeApp();
-  print('Title : ${message.notification?.title}');
-  print('Body : ${message.notification?.body}');
-  print('data : ${message.data}');
+  final authData = await FirebaseAuth.instance.authStateChanges().last;
+  if(authData == null){
+    if (message == null) return;
+    final String route = message.data['route'];
+    if(route == "chat"){
+      navigatorKey.currentState?.pushNamed('/recent-chat');
+    }else if(route == "order"){
+      navigatorKey.currentState?.pushNamed('/order-list');
+    }else{
+      navigatorKey.currentState?.pushNamed('/notification');
+    }
+  }else{
+    navigatorKey.currentState?.pushNamedAndRemoveUntil('/login', (route) => false);
+  }
 }
 
 class FirebaseApi {
@@ -27,10 +40,14 @@ class FirebaseApi {
 
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
-    print(message.senderId);
-    print(message.data);
-    print(message.category);
-    print(message.messageType);
+    final String route = message.data['route'];
+    if(route == "chat"){
+      navigatorKey.currentState?.pushNamed('/recent-chat');
+    }else if(route == "order"){
+      navigatorKey.currentState?.pushNamed('/order-list');
+    }else{
+      navigatorKey.currentState?.pushNamed('/notification');
+    }
   }
 
   Future<void> initPushNotification() async {
@@ -96,7 +113,6 @@ class FirebaseApi {
     final token = await _firebaseMessaging.getToken();
     if(token == null) return;
     await fcmTokenService.writeFCMToken(token);
-    print('Token $token');
     initPushNotification();
     initLocalNotifications();
   }
