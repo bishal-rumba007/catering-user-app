@@ -77,14 +77,4 @@ class AuthDataSource{
     }
   }
 
-  Future<void> saveTokenToDatabase(String token) async {
-    final userId = FirebaseAuth.instance.currentUser!.uid;
-    await FirebaseFirestore.instance
-        .collection('users')
-        .doc(userId)
-        .update({
-      'tokens': FieldValue.arrayUnion([token]),
-    });
-  }
-
 }
