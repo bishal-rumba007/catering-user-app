@@ -1,5 +1,6 @@
 import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
+import 'package:catering_user_app/src/features/chat/data/chat_datasource.dart';
 import 'package:catering_user_app/src/features/order/data/order_datasource.dart';
 import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/domain/pre_order_model.dart';
@@ -216,7 +217,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   SizedBox(
-                    width: 140.w,
+                    width: 130.w,
                     child: BuildTextField(
                       controller: _priceController,
                       labelText: 'Price',
@@ -227,7 +228,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     child: Row(
                       children: [
                         const Icon(Icons.people_alt_rounded, size: 24, color: AppColor.primaryRed,),
-                        SizedBox(width: 10.w,),
+                        SizedBox(width: 8.w,),
                         Container(
                           padding:
                           EdgeInsets.symmetric(horizontal: 8.w),
@@ -315,7 +316,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 50.h,),
+              SizedBox(height: 30.h,),
               BuildButton(
                 onPressed: ()async{
                   final navigator = Navigator.of(context);
@@ -349,8 +350,18 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   final response = await OrderDataSource().placeOrder(orderModel);
                   navigator.pop();
                   if(response == 'Order Placed Successfully'){
+                    await ChatDataSource().sendNotification(
+                      title: "New Order",
+                      message: "You have a new order from ${widget.preOrderModel.name}",
+                      notificationData: {
+                        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                        'name': widget.preOrderModel.name,
+                        'type': 'order',
+                        'route': 'order',
+                      },
+                    );
                     if(!context.mounted) return;
-                    buildSuccessDialog(context, 'Order Placed Successfully',
+                    buildSuccessDialog(context, response,
                     () {
                       Navigator.pushNamedAndRemoveUntil(context, Routes.homeRoute, (route) => false);
                     },
@@ -362,6 +373,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 },
                 buttonWidget: const Text('Confirm'),
               ),
+              SizedBox(height: 20.h,),
             ],
           ),
         ),
