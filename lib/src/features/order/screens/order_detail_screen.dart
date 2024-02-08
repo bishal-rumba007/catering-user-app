@@ -390,7 +390,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                             cancelOrderProvider(orderData.orderId).future);
                         if (response == "Order Cancelled") {
                           await ChatDataSource().sendNotification(
-                              token: orderData.user.metadata?['deviceToken'],
+                              token: orderData.user.metadata!['deviceToken'],
                               title: 'Order Cancelled',
                               message: 'Your order has been cancelled',
                               notificationData: {
