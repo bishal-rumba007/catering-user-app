@@ -10,7 +10,6 @@ import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
-
 class OrderSummaryScreen extends StatefulWidget {
   final PreOrderModel preOrderModel;
   const OrderSummaryScreen({super.key, required this.preOrderModel});
@@ -50,7 +49,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   void _decreaseGuests() {
     if (totalGuest > 0) {
       setState(() {
-        totalGuest-=5;
+        totalGuest -= 5;
         _guestController.text = totalGuest.toString();
         totalPrice = widget.preOrderModel.menu.price * totalGuest;
         _priceController.text = totalPrice.toString();
@@ -124,7 +123,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                 children: [
                   Expanded(
                     child: Container(
-                      padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 20.w, vertical: 10.h),
                       height: 74.h,
                       decoration: BoxDecoration(
                         color: Colors.yellow.withAlpha(150),
@@ -135,24 +135,31 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         children: [
                           Text(
                             'Selected Date',
-                            style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                              color: Colors.yellow.shade800,
-                              fontWeight: FontWeight.w600
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodySmall
+                                ?.copyWith(
+                                    color: Colors.yellow.shade800,
+                                    fontWeight: FontWeight.w600),
                           ),
                           const Spacer(),
                           Text(
-                            DateFormat('d MMM y').format(DateTime.parse(widget.preOrderModel.date)),
-                            style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                              fontSize: 18.sp,
-                              fontWeight: FontWeight.w800
-                            ),
+                            DateFormat('d MMM y').format(
+                                DateTime.parse(widget.preOrderModel.date)),
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleMedium
+                                ?.copyWith(
+                                    fontSize: 18.sp,
+                                    fontWeight: FontWeight.w800),
                           ),
                         ],
                       ),
                     ),
                   ),
-                  SizedBox(width: 20.w,),
+                  SizedBox(
+                    width: 20.w,
+                  ),
                   Expanded(
                     child: InkWell(
                       onTap: () {
@@ -168,7 +175,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         });
                       },
                       child: Container(
-                        padding: EdgeInsets.symmetric(horizontal: 20.w, vertical: 10.h),
+                        padding: EdgeInsets.symmetric(
+                            horizontal: 20.w, vertical: 10.h),
                         height: 76.h,
                         decoration: BoxDecoration(
                           color: Colors.yellow.withAlpha(150),
@@ -179,18 +187,22 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                           children: [
                             Text(
                               'Selected Time',
-                              style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                  color: Colors.yellow.shade800,
-                                  fontWeight: FontWeight.w600
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodySmall
+                                  ?.copyWith(
+                                      color: Colors.yellow.shade800,
+                                      fontWeight: FontWeight.w600),
                             ),
                             const Spacer(),
                             Text(
                               selectedTime,
-                              style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                                  fontSize: 18.sp,
-                                  fontWeight: FontWeight.w800
-                              ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .titleMedium
+                                  ?.copyWith(
+                                      fontSize: 18.sp,
+                                      fontWeight: FontWeight.w800),
                             ),
                           ],
                         ),
@@ -223,15 +235,22 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       labelText: 'Price',
                     ),
                   ),
-                  SizedBox(width: 20.w,),
+                  SizedBox(
+                    width: 20.w,
+                  ),
                   Expanded(
                     child: Row(
                       children: [
-                        const Icon(Icons.people_alt_rounded, size: 24, color: AppColor.primaryRed,),
-                        SizedBox(width: 8.w,),
+                        const Icon(
+                          Icons.people_alt_rounded,
+                          size: 24,
+                          color: AppColor.primaryRed,
+                        ),
+                        SizedBox(
+                          width: 8.w,
+                        ),
                         Container(
-                          padding:
-                          EdgeInsets.symmetric(horizontal: 8.w),
+                          padding: EdgeInsets.symmetric(horizontal: 8.w),
                           height: 50.h,
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(8.r),
@@ -242,7 +261,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                           child: Row(
                             children: [
                               IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   _decreaseGuests();
                                 },
                                 iconSize: 20,
@@ -257,25 +276,28 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                                     onSubmitted: (value) {
                                       setState(() {
                                         totalGuest = int.parse(value);
-                                        totalPrice = widget.preOrderModel.menu.price * totalGuest;
-                                        _priceController.text = totalPrice.toString();
+                                        totalPrice =
+                                            widget.preOrderModel.menu.price *
+                                                totalGuest;
+                                        _priceController.text =
+                                            totalPrice.toString();
                                       });
                                     },
                                     controller: _guestController,
                                     textAlign: TextAlign.center,
                                     keyboardType: TextInputType.number,
                                     decoration: const InputDecoration(
-                                      contentPadding: EdgeInsets.only(bottom: 6),
+                                      contentPadding:
+                                          EdgeInsets.only(bottom: 6),
                                       enabledBorder: InputBorder.none,
                                       focusedBorder: InputBorder.none,
-                                    )
-                                ),
+                                    )),
                               ),
                               SizedBox(
                                 width: 2.w,
                               ),
                               IconButton(
-                                onPressed: (){
+                                onPressed: () {
                                   _increaseGuests();
                                 },
                                 iconSize: 20,
@@ -289,18 +311,20 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   ),
                 ],
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               const MySeparator(height: 1.2),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
                     'Grand Total',
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800
-                    ),
+                        fontSize: 18.sp, fontWeight: FontWeight.w800),
                   ),
                   Text(
                     NumberFormat.currency(
@@ -309,50 +333,53 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       decimalDigits: 0,
                     ).format(totalPrice),
                     style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontSize: 18.sp,
-                      fontWeight: FontWeight.w800,
-                      color: AppColor.primaryRed
-                    ),
+                        fontSize: 18.sp,
+                        fontWeight: FontWeight.w800,
+                        color: AppColor.primaryRed),
                   ),
                 ],
               ),
-              SizedBox(height: 30.h,),
+              SizedBox(
+                height: 30.h,
+              ),
               BuildButton(
-                onPressed: ()async{
+                onPressed: () async {
                   final navigator = Navigator.of(context);
                   OrderModel orderModel = OrderModel(
-                      orderId: "",
-                      orderDetail: OrderDetail(
-                          customerId: widget.preOrderModel.customerId,
-                          customerName: widget.preOrderModel.name,
-                          customerAddress: widget.preOrderModel.address,
-                          customerPhone: widget.preOrderModel.phone,
-                          dietaryPref: widget.preOrderModel.dietaryPref,
-                          helpers: widget.preOrderModel.helpers,
-                          orderDate: widget.preOrderModel.date,
-                          totalGuests: widget.preOrderModel.totalGuests
-                      ),
-                      advancePayment: "",
-                      price: widget.preOrderModel.menu.price.toString(),
-                      categoryId: widget.preOrderModel.menu.categoryId,
-                      categoryName: widget.preOrderModel.menu.categoryName,
-                      categoryImage: "",
-                      catererId: widget.preOrderModel.menu.userId,
-                      menuId: widget.preOrderModel.menu.menuId,
-                      menuName: widget.preOrderModel.menu.categoryName,
-                      orderStatus: OrderStatus.pending,
-                      dessertMenu: widget.preOrderModel.menu.dessertMenu,
-                      mainCourseMenu: widget.preOrderModel.menu.mainCourseMenu,
-                      starterMenu: widget.preOrderModel.menu.starterMenu,
-                      user: const types.User(id: ''),
+                    orderId: "",
+                    orderDetail: OrderDetail(
+                        customerId: widget.preOrderModel.customerId,
+                        customerName: widget.preOrderModel.name,
+                        customerAddress: widget.preOrderModel.address,
+                        customerPhone: widget.preOrderModel.phone,
+                        dietaryPref: widget.preOrderModel.dietaryPref,
+                        helpers: widget.preOrderModel.helpers,
+                        orderDate: widget.preOrderModel.date,
+                        totalGuests: widget.preOrderModel.totalGuests),
+                    advancePayment: "",
+                    price: widget.preOrderModel.menu.price.toString(),
+                    categoryId: widget.preOrderModel.menu.categoryId,
+                    categoryName: widget.preOrderModel.menu.categoryName,
+                    categoryImage: "",
+                    catererId: widget.preOrderModel.menu.userId,
+                    menuId: widget.preOrderModel.menu.menuId,
+                    menuName: widget.preOrderModel.menu.categoryName,
+                    orderStatus: OrderStatus.pending,
+                    dessertMenu: widget.preOrderModel.dessertMenu,
+                    mainCourseMenu: widget.preOrderModel.mainCourseMenu,
+                    starterMenu: widget.preOrderModel.starterMenu,
+                    user: const types.User(id: ''),
                   );
                   buildLoadingDialog(context, 'Placing Order!!');
-                  final response = await OrderDataSource().placeOrder(orderModel);
+                  final response =
+                      await OrderDataSource().placeOrder(orderModel);
                   navigator.pop();
-                  if(response == 'Order Placed Successfully'){
+                  if (response == 'Order Placed Successfully') {
                     await ChatDataSource().sendNotification(
+                      token: widget.preOrderModel.user.metadata?['deviceToken'],
                       title: "New Order",
-                      message: "You have a new order from ${widget.preOrderModel.name}",
+                      message:
+                          "You have a new order from ${widget.preOrderModel.name}",
                       notificationData: {
                         'click_action': 'FLUTTER_NOTIFICATION_CLICK',
                         'name': widget.preOrderModel.name,
@@ -360,20 +387,28 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         'route': 'order',
                       },
                     );
-                    if(!context.mounted) return;
-                    buildSuccessDialog(context, response,
-                    () {
-                      Navigator.pushNamedAndRemoveUntil(context, Routes.homeRoute, (route) => false);
-                    },
+                    if (!context.mounted) return;
+                    buildSuccessDialog(
+                      context,
+                      response,
+                      () {
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, Routes.homeRoute, (route) => false);
+                      },
                     );
-                  }else{
-                    if(!context.mounted) return;
-                    buildErrorDialog(context, 'Could not place order\n Try again later!',);
+                  } else {
+                    if (!context.mounted) return;
+                    buildErrorDialog(
+                      context,
+                      'Could not place order\n Try again later!',
+                    );
                   }
                 },
                 buttonWidget: const Text('Confirm'),
               ),
-              SizedBox(height: 20.h,),
+              SizedBox(
+                height: 20.h,
+              ),
             ],
           ),
         ),
@@ -406,11 +441,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   }
 }
 
-
-
 class MySeparator extends StatelessWidget {
-  const MySeparator({Key? key, this.height = 1, this.color = Colors.black})
-      : super(key: key);
+  const MySeparator({super.key, this.height = 1, this.color = Colors.black});
   final double height;
   final Color color;
 
@@ -430,7 +462,8 @@ class MySeparator extends StatelessWidget {
               width: dashWidth,
               height: dashHeight,
               child: DecoratedBox(
-                decoration: BoxDecoration(color: Theme.of(context).colorScheme.onSurface),
+                decoration: BoxDecoration(
+                    color: Theme.of(context).colorScheme.onSurface),
               ),
             );
           }),

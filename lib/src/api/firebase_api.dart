@@ -10,18 +10,19 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 Future<void> handleBackgroundMessage(RemoteMessage? message) async {
   await Firebase.initializeApp();
   final authData = await FirebaseAuth.instance.authStateChanges().last;
-  if(authData == null){
+  if (authData == null) {
     if (message == null) return;
     final String route = message.data['route'];
-    if(route == "chat"){
+    if (route == "chat") {
       navigatorKey.currentState?.pushNamed('/recent-chat');
-    }else if(route == "order"){
+    } else if (route == "order") {
       navigatorKey.currentState?.pushNamed('/order-list');
-    }else{
+    } else {
       navigatorKey.currentState?.pushNamed('/notification');
     }
-  }else{
-    navigatorKey.currentState?.pushNamedAndRemoveUntil('/login', (route) => false);
+  } else {
+    navigatorKey.currentState
+        ?.pushNamedAndRemoveUntil('/login', (route) => false);
   }
 }
 
@@ -41,11 +42,11 @@ class FirebaseApi {
   void handleMessage(RemoteMessage? message) {
     if (message == null) return;
     final String route = message.data['route'];
-    if(route == "chat"){
+    if (route == "chat") {
       navigatorKey.currentState?.pushNamed('/recent-chat');
-    }else if(route == "order"){
+    } else if (route == "order") {
       navigatorKey.currentState?.pushNamed('/order-list');
-    }else{
+    } else {
       navigatorKey.currentState?.pushNamed('/notification');
     }
   }
@@ -86,15 +87,14 @@ class FirebaseApi {
     const ios = DarwinInitializationSettings();
     const android = AndroidInitializationSettings('@mipmap/ic_launcher');
     const settings = InitializationSettings(iOS: ios, android: android);
-    await _localNotification.initialize(
-      settings,
-      onDidReceiveNotificationResponse: (detail) {
-        if(detail.payload == null) return;
-        final message = RemoteMessage.fromMap(jsonDecode(detail.payload ?? ""));
-        handleMessage(message);
-      }
-    );
-    final platform = _localNotification.resolvePlatformSpecificImplementation<AndroidFlutterLocalNotificationsPlugin>();
+    await _localNotification.initialize(settings,
+        onDidReceiveNotificationResponse: (detail) {
+      if (detail.payload == null) return;
+      final message = RemoteMessage.fromMap(jsonDecode(detail.payload ?? ""));
+      handleMessage(message);
+    });
+    final platform = _localNotification.resolvePlatformSpecificImplementation<
+        AndroidFlutterLocalNotificationsPlugin>();
     if (platform != null) {
       await platform.createNotificationChannel(_androidChannel);
     }
@@ -111,7 +111,7 @@ class FirebaseApi {
       sound: true,
     );
     final token = await _firebaseMessaging.getToken();
-    if(token == null) return;
+    if (token == null) return;
     await fcmTokenService.writeFCMToken(token);
     initPushNotification();
     initLocalNotifications();

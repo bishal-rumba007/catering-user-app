@@ -41,7 +41,6 @@ class RecentChatScreen extends StatelessWidget {
                             Navigator.push(context, MaterialPageRoute(
                               builder: (context) => ChatScreen(
                                 room: data[index],
-                                token: otherUser.metadata?['deviceToken'],
                                 name: otherUser.firstName!,
                               ),
                             ));

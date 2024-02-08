@@ -60,11 +60,11 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                   height: 170.h,
                   width: 290.w,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.r),
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage(data.categoryImage),
-                      ),
+                    borderRadius: BorderRadius.circular(12.r),
+                    image: DecorationImage(
+                      fit: BoxFit.cover,
+                      image: NetworkImage(data.categoryImage),
+                    ),
                   ),
                 ),
               ),
@@ -77,7 +77,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                   builder: (context, scrollController) {
                     return Container(
                       padding:
-                      EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
+                          EdgeInsets.only(top: 20.h, left: 20.w, right: 20.w),
                       decoration: BoxDecoration(
                           color: Theme.of(context).colorScheme.surface,
                           borderRadius: BorderRadius.vertical(
@@ -85,13 +85,15 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           ),
                           boxShadow: [
                             BoxShadow(
-                              color: Theme.of(context).colorScheme.onBackground.withOpacity(0.15),
+                              color: Theme.of(context)
+                                  .colorScheme
+                                  .onBackground
+                                  .withOpacity(0.15),
                               spreadRadius: 1.5,
                               blurRadius: 8,
                               offset: const Offset(0, -1),
                             ),
-                          ]
-                      ),
+                          ]),
                       child: ListView(
                         controller: scrollController,
                         children: [
@@ -115,15 +117,14 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                     ),
                               ),
                               Container(
-                                padding:
-                                    EdgeInsets.symmetric(horizontal: 8.w),
+                                padding: EdgeInsets.symmetric(horizontal: 8.w),
                                 height: 34.h,
                                 width: 100.w,
                                 decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(8.r),
-                                    border: Border.all(
-                                      color: Colors.grey.shade600,
-                                    ),
+                                  borderRadius: BorderRadius.circular(8.r),
+                                  border: Border.all(
+                                    color: Colors.grey.shade600,
+                                  ),
                                 ),
                                 child: Row(
                                   children: [
@@ -158,8 +159,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
-                                        ?.copyWith(
-                                            color: Colors.grey.shade600),
+                                        ?.copyWith(color: Colors.grey.shade600),
                                   ),
                                   Text(
                                     formattedDate,
@@ -175,8 +175,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
-                                        ?.copyWith(
-                                            color: Colors.grey.shade600),
+                                        ?.copyWith(color: Colors.grey.shade600),
                                   ),
                                   Text(
                                     data.orderDetail.helpers,
@@ -192,8 +191,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                     style: Theme.of(context)
                                         .textTheme
                                         .bodyLarge
-                                        ?.copyWith(
-                                            color: Colors.grey.shade600),
+                                        ?.copyWith(color: Colors.grey.shade600),
                                   ),
                                   Text(
                                     'Rs. ${formatTotalPrice(totalPrice)}',
@@ -218,32 +216,31 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           ),
                           Text(
                             'Customer Details',
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyLarge
-                                ?.copyWith(
-                                  decoration: TextDecoration.underline,
-                                ),
+                            style:
+                                Theme.of(context).textTheme.bodyLarge?.copyWith(
+                                      decoration: TextDecoration.underline,
+                                    ),
                           ),
                           SizedBox(
                             height: 4.h,
                           ),
                           RichText(
-                            text: TextSpan(children: [
-                              TextSpan(
-                                text: 'Name     :  ',
-                                style: Theme.of(context).textTheme.bodyMedium,
-                              ),
-                              TextSpan(
-                                text: data.orderDetail.customerName,
-                                style: Theme.of(context)
-                                    .textTheme
-                                    .bodyMedium
-                                    ?.copyWith(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 15.sp),
-                              ),
-                            ],
+                            text: TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: 'Name     :  ',
+                                  style: Theme.of(context).textTheme.bodyMedium,
+                                ),
+                                TextSpan(
+                                  text: data.orderDetail.customerName,
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyMedium
+                                      ?.copyWith(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 15.sp),
+                                ),
+                              ],
                             ),
                           ),
                           SizedBox(
@@ -254,8 +251,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                               children: [
                                 TextSpan(
                                   text: 'Address :  ',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 TextSpan(
                                   text: data.orderDetail.customerAddress,
@@ -277,8 +273,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                               children: [
                                 TextSpan(
                                   text: 'Phone    :  ',
-                                  style:
-                                      Theme.of(context).textTheme.bodyMedium,
+                                  style: Theme.of(context).textTheme.bodyMedium,
                                 ),
                                 TextSpan(
                                   text: data.orderDetail.customerPhone,
@@ -297,10 +292,12 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           ),
                           data.orderStatus.index == 1
                               ? BuildButton(
-                                  onPressed: () async{
+                                  onPressed: () async {
                                     final navigator = Navigator.of(context);
-                                    final scaffoldMessage = ScaffoldMessenger.of(context);
+                                    final scaffoldMessage =
+                                        ScaffoldMessenger.of(context);
                                     navigator.pushNamed('/recent-chat');
+
                                     ///Todo: Figure out logic for chat screen route
                                     //final response = await ref.read(roomProvider).createRoom(data.user);
                                     // if(response != null){
@@ -322,16 +319,16 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                                   buttonWidget: const Text('Message'),
                                 )
                               : OutlinedButton(
-                            style: OutlinedButton.styleFrom(
-                              side: const BorderSide(
-                                color: AppColor.primaryRed,
-                              ),
-                            ),
-                            onPressed: () {
-                              buildRejectModal(context, data);
-                            },
-                            child: const Text('Cancel Order'),
-                          ),
+                                  style: OutlinedButton.styleFrom(
+                                    side: const BorderSide(
+                                      color: AppColor.primaryRed,
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    buildRejectModal(context, data);
+                                  },
+                                  child: const Text('Cancel Order'),
+                                ),
                           SizedBox(
                             height: 10.h,
                           ),
@@ -385,21 +382,22 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                     height: 30.h,
                   ),
                   BuildButton(
-                    onPressed: () async{
+                    onPressed: () async {
                       final navigator = Navigator.of(context);
-                      if(formKey.currentState!.validate()){
+                      if (formKey.currentState!.validate()) {
                         buildLoadingDialog(context, 'Cancelling Order...');
-                        final response = await ref.read(cancelOrderProvider(orderData.orderId).future);
-                        if(response == "Order Cancelled"){
+                        final response = await ref.read(
+                            cancelOrderProvider(orderData.orderId).future);
+                        if (response == "Order Cancelled") {
                           await ChatDataSource().sendNotification(
+                              token: orderData.user.metadata?['deviceToken'],
                               title: 'Order Cancelled',
                               message: 'Your order has been cancelled',
                               notificationData: {
                                 'click_action': 'FLUTTER_NOTIFICATION_CLICK',
                                 'type': 'order',
                                 'route': 'notification',
-                              }
-                          );
+                              });
                           await OrderDataSource().cancelNotification(
                             orderModel: orderData,
                             reason: reasonController.text.trim(),
@@ -409,7 +407,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                         navigator.pop();
                         navigator.pop();
                       }
-                      },
+                    },
                     buttonWidget: const Text('Submit'),
                   ),
                   SizedBox(

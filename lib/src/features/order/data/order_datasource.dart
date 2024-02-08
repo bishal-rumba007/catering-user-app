@@ -83,6 +83,7 @@ class OrderDataSource {
           id: snapshot.id,
           firstName: json['firstName'],
           metadata: {
+            'deviceToken': json['metadata']['deviceToken'],
             'email': json['metadata']['email'],
             'phone': json['metadata']['phone'],
             'role': json['metadata']['role'],

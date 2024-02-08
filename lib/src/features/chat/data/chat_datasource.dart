@@ -5,11 +5,9 @@ import 'package:catering_user_app/src/api/api_keys.dart';
 import 'package:catering_user_app/src/api/endpoints.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:dio/dio.dart';
-import 'package:firebase_messaging/firebase_messaging.dart';
 
 class ChatDataSource{
-  Future<void> sendNotification({required String title, required String message, Map<String, dynamic>? notificationData}) async {
-    final token = await FirebaseMessaging.instance.getToken();
+  Future<void> sendNotification({required String token, required String title, required String message, Map<String, dynamic>? notificationData}) async {
     final dio = Dio(
       BaseOptions(
         headers: {

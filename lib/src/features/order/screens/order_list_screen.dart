@@ -34,7 +34,9 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
 
         body: orderData.when(
           data: (data) {
-            final orderList = data.where((element) => element.orderStatus != OrderStatus.cancelled).toList();
+            final orderList = data.where((element) {
+              return element.orderStatus != OrderStatus.cancelled && element.orderStatus != OrderStatus.rejected;
+            }).toList();
             return orderList.isEmpty ? Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,

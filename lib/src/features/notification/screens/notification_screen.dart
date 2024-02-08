@@ -1,4 +1,3 @@
-import 'package:catering_user_app/src/features/notification/data/notification_datasource.dart';
 import 'package:catering_user_app/src/features/notification/data/notification_list_provider.dart';
 import 'package:catering_user_app/src/features/notification/screens/widgets/notification_card.dart';
 import 'package:flutter/material.dart';
@@ -32,8 +31,11 @@ class NotificationScreen extends ConsumerWidget {
                     itemCount: data.length,
                     itemBuilder: (context, index) {
                       return InkWell(
-                        onTap: () async{
-                          await ref.read(notificationDataSourceProvider).updateNotificationReadStatus(data[index].notificationId);
+                        onTap: () async {
+                          await ref
+                              .read(notificationDataSourceProvider)
+                              .updateNotificationReadStatus(
+                                  data[index].notificationId);
                         },
                         child: NotificationCard(notification: data[index]),
                       );

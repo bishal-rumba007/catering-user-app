@@ -370,6 +370,10 @@ class _BookingScreenState extends State<BookingScreen> {
                             helpers: _staffController.text.trim(),
                             totalGuests: _guestController.text.trim(),
                             menu: widget.menuData,
+                            user: widget.menuData.user,
+                            starterMenu: starterMenu,
+                            mainCourseMenu: mainCourseMenu,
+                            dessertMenu: dessertMenu,
                           );
                           if(_formKey.currentState!.validate()){
                             Navigator.push(

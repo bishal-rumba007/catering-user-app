@@ -3,11 +3,11 @@ import 'package:catering_user_app/src/features/notification/data/notification_da
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
 class NotificationCard extends StatelessWidget {
   final NotificationModel notification;
   const NotificationCard({
-    super.key, required this.notification,
+    super.key,
+    required this.notification,
   });
 
   @override
@@ -27,11 +27,14 @@ class NotificationCard extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
-            margin: EdgeInsets.only(top: 5.h, right: 16.w, left: 2.w, bottom: 2.h),
+            margin:
+                EdgeInsets.only(top: 5.h, right: 16.w, left: 2.w, bottom: 2.h),
             height: 12.h,
             width: 12.h,
             decoration: BoxDecoration(
-              color: notification.isRead ? theme.colorScheme.inverseSurface : Colors.red,
+              color: notification.isRead
+                  ? theme.colorScheme.inverseSurface
+                  : Colors.red,
               borderRadius: BorderRadius.circular(12.r),
             ),
           ),
@@ -66,7 +69,7 @@ class NotificationCard extends StatelessWidget {
                       width: 6.w,
                     ),
                     Text(
-                      formatDistanceToNowStrict(notification.createdAt),
+                      '${formatDistanceToNowStrict(notification.createdAt)} ago',
                       style: theme.textTheme.labelMedium,
                     ),
                   ],

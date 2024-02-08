@@ -12,11 +12,10 @@ import 'package:image_picker/image_picker.dart';
 
 class ChatScreen extends StatelessWidget {
   final types.Room room;
-  final String token;
   final String name;
 
   const ChatScreen(
-      {super.key, required this.room, required this.token, required this.name});
+      {super.key, required this.room, required this.name});
 
   @override
   Widget build(BuildContext context) {
@@ -38,17 +37,22 @@ class ChatScreen extends StatelessWidget {
                       element.id ==
                       FirebaseChatCore.instance.firebaseUser?.uid,
                 ).firstName;
+                final otherUser = room.users.firstWhere(
+                  (element) =>
+                      element.id !=
+                      FirebaseChatCore.instance.firebaseUser?.uid,
+                );
+                final deviceToken = otherUser.metadata?['deviceToken'];
                 return Chat(
                   messages: snapshot.data ?? [],
                   onSendPressed: (value) async {
                     FirebaseChatCore.instance.sendMessage(value, room.id);
                     await ChatDataSource().sendNotification(
+                      token: deviceToken,
                       title: '$currentUserName',
                       message: value.text,
                       notificationData: {
                         'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-                        'id': '1',
-                        'room': room.id,
                         'name': name,
                         'type': 'chat',
                         'route': 'chat',

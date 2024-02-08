@@ -1,4 +1,4 @@
-
+import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class Menus {
   String userId;
@@ -12,6 +12,7 @@ class Menus {
   List<String> starterMenu;
   List<String> mainCourseMenu;
   List<String> dessertMenu;
+  final types.User user;
 
   Menus({
     required this.userId,
@@ -25,6 +26,7 @@ class Menus {
     required this.mainCourseMenu,
     required this.dessertMenu,
     required this.menuDescription,
+    required this.user,
   });
 
   factory Menus.fromJson(Map<String, dynamic> json) {
@@ -40,6 +42,7 @@ class Menus {
       starterMenu: List<String>.from(json['starterMenu']),
       mainCourseMenu: List<String>.from(json['mainCourseMenu']),
       dessertMenu: List<String>.from(json['dessertMenu']),
+      user: json['user'],
     );
   }
 
