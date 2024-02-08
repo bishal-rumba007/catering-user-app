@@ -42,7 +42,7 @@ class OrderDataSource {
         final data = Future.wait(event.docs.map((e) async {
           final json = e.data();
           final categoryImage = await getCategoryImage(json['categoryId']);
-          final userData = await getUserDetail(json['orderInfo']['customerId']);
+          final userData = await getUserDetail(json['catererId']);
           return OrderModel.fromJson({
             ...json,
             'orderId': e.id,
