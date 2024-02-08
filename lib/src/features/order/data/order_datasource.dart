@@ -7,7 +7,8 @@ class OrderDataSource {
   final _userDb = FirebaseFirestore.instance.collection('users');
   final _orderDb = FirebaseFirestore.instance.collection('orders');
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
-  final _notificationDb = FirebaseFirestore.instance.collection('notifications');
+  final _notificationDb =
+      FirebaseFirestore.instance.collection('notifications');
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<String> placeOrder(OrderModel orderModel) async {
@@ -35,7 +36,8 @@ class OrderDataSource {
   Stream<List<OrderModel>> getOrdersStream() {
     final uid = FirebaseAuth.instance.currentUser!.uid;
     try {
-      final data = _orderDb.where('orderInfo.customerId', isEqualTo: uid).snapshots();
+      final data =
+          _orderDb.where('orderInfo.customerId', isEqualTo: uid).snapshots();
       final response = data.asyncMap((event) async {
         final data = Future.wait(event.docs.map((e) async {
           final json = e.data();
@@ -50,7 +52,7 @@ class OrderDataSource {
         }).toList());
         return data;
       });
-    return response;
+      return response;
     } on FirebaseException catch (error) {
       throw '$error';
     }
@@ -123,7 +125,8 @@ class OrderDataSource {
     }
   }
 
-  Future<String> cancelNotification({required OrderModel orderModel, required String reason}) async {
+  Future<String> cancelNotification(
+      {required OrderModel orderModel, required String reason}) async {
     try {
       await _notificationDb.add({
         'title': 'Order Cancelled',
@@ -132,12 +135,9 @@ class OrderDataSource {
         'orderId': orderModel.orderId,
         'senderId': orderModel.orderDetail.customerId,
         'receiverId': orderModel.catererId,
-        'status': 'unread',
-        'createdAt': DateTime.now().microsecondsSinceEpoch.toString(),
-        'data': {
-          'reason': reason,
-          'orderInfo': orderModel.toJson()
-        },
+        'isRead': false,
+        'createdAt': DateTime.now.toString(),
+        'data': {'reason': reason, 'orderInfo': orderModel.toJson()},
       });
       return 'Order cancelled';
     } on FirebaseException catch (err) {

@@ -376,7 +376,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                   navigator.pop();
                   if (response == 'Order Placed Successfully') {
                     await ChatDataSource().sendNotification(
-                      token: widget.preOrderModel.user.metadata?['deviceToken'],
+                      token: widget.preOrderModel.user.metadata!['deviceToken'],
                       title: "New Order",
                       message:
                           "You have a new order from ${widget.preOrderModel.name}",
