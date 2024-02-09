@@ -64,7 +64,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
         actions: [
           InkWell(
             splashFactory: InkRipple.splashFactory,
-            onTap: () {},
+            onTap: () {
+              Navigator.pushNamed(context, '/search');
+            },
             child: Padding(
               padding: EdgeInsets.only(right: 8.w),
               child: Container(

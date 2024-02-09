@@ -8,6 +8,7 @@ import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
 import 'package:catering_user_app/src/features/order/screens/order_list_screen.dart';
 import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
+import 'package:catering_user_app/src/features/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
 import 'common_export.dart';
@@ -23,6 +24,7 @@ class Routes {
   static const String orderListRoute = '/order-list';
   static const String recentChats = '/recent-chat';
   static const String chatRoute = '/chat';
+  static const String searchRoute = '/search';
 }
 
 class RouteGenerator{
@@ -46,6 +48,8 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
       case Routes.recentChats:
         return MaterialPageRoute(builder: (_) => const RecentChatScreen());
+      case Routes.searchRoute:
+        return MaterialPageRoute(builder: (_) => const SearchScreen());
       ///Todo: Figure out route that requires parameters
         // case Routes.chatRoute:
       //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: argument,));
