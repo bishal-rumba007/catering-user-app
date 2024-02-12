@@ -294,27 +294,7 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                               ? BuildButton(
                                   onPressed: () async {
                                     final navigator = Navigator.of(context);
-                                    final scaffoldMessage =
-                                        ScaffoldMessenger.of(context);
                                     navigator.pushNamed('/recent-chat');
-
-                                    ///Todo: Figure out logic for chat screen route
-                                    //final response = await ref.read(roomProvider).createRoom(data.user);
-                                    // if(response != null){
-                                    //   navigator.push(
-                                    //     MaterialPageRoute(
-                                    //       builder: (_) => ChatScreen(
-                                    //         room: response,
-                                    //         token: otherUser.metadata?['deviceToken'],
-                                    //         name: otherUser.firstName!,
-                                    //       ),
-                                    //     ),
-                                    //   );
-                                    // }else{
-                                    //   scaffoldMessage.showSnackBar(
-                                    //     const SnackBar(duration: Duration(milliseconds: 1500) , content: Text("something went wrong")),
-                                    //   );
-                                    // }
                                   },
                                   buttonWidget: const Text('Message'),
                                 )
