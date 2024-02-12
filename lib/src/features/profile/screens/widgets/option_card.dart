@@ -24,7 +24,7 @@ class OptionCard extends StatelessWidget {
           borderRadius:
           BorderRadius.circular(10.r), // Set the border radius here
         ),
-        color: const Color(0xffffde8b).withOpacity(0.9),
+        color: Theme.of(context).colorScheme.surface,
         margin: const EdgeInsets.only(bottom: 2,),
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
