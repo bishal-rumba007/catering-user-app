@@ -1,4 +1,3 @@
-
 import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/features/auth/screens/auth_provider.dart';
 import 'package:catering_user_app/src/common/widgets/build_dialogs.dart';
@@ -37,7 +36,6 @@ class _LoginScreenState extends State<LoginScreen> {
     getData();
   }
 
-
   /// gets the stored data from the box and assigns it to the controllers
   void getData() async {
     if (box1.get('username') != null) {
@@ -72,9 +70,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     alignment: Alignment.topLeft,
                     child: Text(
                       'Login',
-                      style: Theme.of(context)
-                          .textTheme
-                          .headlineSmall,
+                      style: Theme.of(context).textTheme.headlineSmall,
                     ),
                   ),
                   SizedBox(
@@ -118,59 +114,59 @@ class _LoginScreenState extends State<LoginScreen> {
                           setState(() {});
                         },
                         materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
+                        visualDensity:
+                            const VisualDensity(horizontal: -4, vertical: -4),
                         activeColor: AppColor.primaryRed,
                         checkColor: Colors.white,
                         side: const BorderSide(
-                          color: AppColor.greyColor,
-                          width: 1.4
-                        ),
+                            color: AppColor.greyColor, width: 1.4),
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(3),
                         ),
                       ),
-                      SizedBox(width: 6.w,),
-                      Text("Remember Me",
+                      SizedBox(
+                        width: 6.w,
+                      ),
+                      Text(
+                        "Remember Me",
                         style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                              fontWeight: FontWeight.w600,
+                            ),
                       ),
                     ],
                   ),
                   SizedBox(height: 50.h),
-                  Consumer(
-                    builder: (context, ref, child) {
-                      final authData = ref.watch(authProvider);
-                     return BuildButton(
-                       onPressed: () async{
-                         if(_formKey.currentState!.validate()){
-                           final navigator = Navigator.of(context);
-                           buildLoadingDialog(context, "Logging in..");
-                           login();
-                           final response = await authData.login(
-                             email: _usernameController.text.trim(),
-                             password: _passwordController.text.trim(),
-                           );
-                           navigator.pop();
-                           if(response != 'Login Successful'){
-                             if(!context.mounted) return;
-                             buildErrorDialog(context, response);
-                           }else{
-                             navigator.pushNamed(Routes.homeRoute);
-                           }
-                         }
-                       },
-                       buttonWidget: const Text('Login'),
-                     );
-                    }
+                  Consumer(builder: (context, ref, child) {
+                    final authData = ref.watch(authProvider);
+                    return BuildButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          final navigator = Navigator.of(context);
+                          buildLoadingDialog(context, "Logging in..");
+                          login();
+                          final response = await authData.login(
+                            email: _usernameController.text.trim(),
+                            password: _passwordController.text.trim(),
+                          );
+                          navigator.pop();
+                          if (response != 'Login Successful') {
+                            if (!context.mounted) return;
+                            buildErrorDialog(context, response);
+                          } else {
+                            navigator.pushNamed(Routes.mainScreenRoute);
+                          }
+                        }
+                      },
+                      buttonWidget: const Text('Login'),
+                    );
+                  }),
+                  SizedBox(
+                    height: 60.h,
                   ),
-                  SizedBox(height: 60.h,),
-                  Text(
-                    'Don\'t have an account?',
-                    style: Theme.of(context).textTheme.bodyMedium
-                  ),
+                  Text('Don\'t have an account?',
+                      style: Theme.of(context).textTheme.bodyMedium),
                   TextButton(
-                    onPressed: (){
+                    onPressed: () {
                       Navigator.pushNamed(context, Routes.registerRoute);
                     },
                     child: const Text('Create an account'),
@@ -193,8 +189,8 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   /// clears the box or removes the stored credentials.
-  void removeLoginInfo(){
-    if(!_isChecked){
+  void removeLoginInfo() {
+    if (!_isChecked) {
       box1.clear();
     }
   }

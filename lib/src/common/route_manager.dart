@@ -1,9 +1,8 @@
-
-
 import 'package:catering_user_app/src/features/auth/screens/login_screen.dart';
 import 'package:catering_user_app/src/features/auth/screens/sign_up_screen.dart';
 import 'package:catering_user_app/src/features/chat/screens/recent_chat_screen.dart';
 import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dart';
+import 'package:catering_user_app/src/features/dashboard/screens/main_screen.dart';
 import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
 import 'package:catering_user_app/src/features/order/screens/order_list_screen.dart';
@@ -25,11 +24,12 @@ class Routes {
   static const String recentChats = '/recent-chat';
   static const String chatRoute = '/chat';
   static const String searchRoute = '/search';
+  static const String mainScreenRoute = '/main-screen';
 }
 
-class RouteGenerator{
-  static Route<dynamic> generateRoute(RouteSettings settings){
-    switch(settings.name){
+class RouteGenerator {
+  static Route<dynamic> generateRoute(RouteSettings settings) {
+    switch (settings.name) {
       case Routes.splashRoute:
         return MaterialPageRoute(builder: (_) => const SplashScreen());
       case Routes.loginRoute:
@@ -44,19 +44,23 @@ class RouteGenerator{
         return MaterialPageRoute(builder: (_) => const NotificationScreen());
       case Routes.profileRoute:
         return MaterialPageRoute(builder: (_) => const ProfileScreen());
-        case Routes.orderListRoute:
+      case Routes.orderListRoute:
         return MaterialPageRoute(builder: (_) => const OrderListScreen());
       case Routes.recentChats:
         return MaterialPageRoute(builder: (_) => const RecentChatScreen());
       case Routes.searchRoute:
         return MaterialPageRoute(builder: (_) => const SearchScreen());
+      case Routes.mainScreenRoute:
+        return MaterialPageRoute(builder: (_) => const MainScreen());
+
       ///Todo: Figure out route that requires parameters
-        // case Routes.chatRoute:
+      // case Routes.chatRoute:
       //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: argument,));
       default:
         return unDefinedRoute();
     }
   }
+
   static Route<dynamic> unDefinedRoute() {
     return MaterialPageRoute(
       builder: (_) => Scaffold(

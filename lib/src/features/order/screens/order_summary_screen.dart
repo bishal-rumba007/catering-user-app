@@ -393,7 +393,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                       response,
                       () {
                         Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.homeRoute, (route) => false);
+                            context, Routes.mainScreenRoute, (route) => false);
                       },
                     );
                   } else {
