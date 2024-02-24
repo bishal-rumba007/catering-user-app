@@ -241,6 +241,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.7.10"
+  device_info_plus:
+    dependency: transitive
+    description:
+      name: device_info_plus
+      sha256: "77f757b789ff68e4eaf9c56d1752309bd9f7ad557cb105b938a7f8eb89e59110"
+      url: "https://pub.dev"
+    source: hosted
+    version: "9.1.2"
+  device_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: device_info_plus_platform_interface
+      sha256: d3b01d5868b50ae571cd1dc6e502fc94d956b665756180f7b16ead09e836fd64
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.0"
   diffutil_dart:
     dependency: transitive
     description:
@@ -764,10 +780,10 @@ packages:
     dependency: "direct main"
     description:
       name: intl
-      sha256: d6f56758b7d3014a48af9701c085700aac781a92a87a62b1333b46d8879661cf
+      sha256: "3bc132a9dbce73a7e4a21a17d06e1878839ffbf975568bc875c60537824b0c4d"
       url: "https://pub.dev"
     source: hosted
-    version: "0.19.0"
+    version: "0.18.1"
   io:
     dependency: transitive
     description:
@@ -792,6 +808,30 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.8.1"
+  khalti:
+    dependency: transitive
+    description:
+      name: khalti
+      sha256: "4b84443a12e84c8262c225894a0f25297b092cecd3ac05cb0897eeb227eff5ea"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.0"
+  khalti_core:
+    dependency: transitive
+    description:
+      name: khalti_core
+      sha256: "9e86517fd71fa9127d0ce2352e9eb2146d5312c63dfa744ee63a438d02a5f867"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.1"
+  khalti_flutter:
+    dependency: "direct main"
+    description:
+      name: khalti_flutter
+      sha256: "1d2a66b1b1af5e1c4b59f3709de6bcc6480582031c4d1b99cf98bd438debfbfa"
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.0.0"
   linkify:
     dependency: transitive
     description:
@@ -872,6 +912,22 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.1.0"
+  package_info_plus:
+    dependency: transitive
+    description:
+      name: package_info_plus
+      sha256: "7e76fad405b3e4016cd39d08f455a4eb5199723cf594cd1b8916d47140d93017"
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.2.0"
+  package_info_plus_platform_interface:
+    dependency: transitive
+    description:
+      name: package_info_plus_platform_interface
+      sha256: "9bc8ba46813a4cc42c66ab781470711781940780fd8beddd0c3da62506d3a6c6"
+      url: "https://pub.dev"
+    source: hosted
+    version: "2.0.1"
   path:
     dependency: transitive
     description:
@@ -1341,6 +1397,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.2.0"
+  win32_registry:
+    dependency: transitive
+    description:
+      name: win32_registry
+      sha256: "41fd8a189940d8696b1b810efb9abcf60827b6cbfab90b0c43e8439e3a39d85a"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.2"
   xdg_directories:
     dependency: transitive
     description:
