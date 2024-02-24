@@ -16,16 +16,17 @@ class OptionCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onPressed,
-      child: Card(
-        elevation: 0,
-        shape: RoundedRectangleBorder(
-          borderRadius:
-          BorderRadius.circular(10.r), // Set the border radius here
-        ),
-        color: Theme.of(context).colorScheme.surface,
-        margin: const EdgeInsets.only(bottom: 2,),
+    return Card(
+      elevation: 0,
+      shape: RoundedRectangleBorder(
+        borderRadius:
+        BorderRadius.circular(10.r), // Set the border radius here
+      ),
+      margin: const EdgeInsets.only(bottom: 2,),
+      child: InkWell(
+        borderRadius:
+        BorderRadius.circular(10.r), // Set the border radius
+        onTap: onPressed,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 10.w),
           child: Row(
@@ -42,16 +43,12 @@ class OptionCard extends StatelessWidget {
                       Text(
                         text,
                         textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).colorScheme.inversePrimary
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                       Text(
                         subText,
                         textAlign: TextAlign.start,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                            color: Theme.of(context).colorScheme.inversePrimary
-                        ),
+                        style: Theme.of(context).textTheme.bodyMedium,
                       ),
                     ],
                   ),

@@ -2,6 +2,7 @@ import 'package:catering_user_app/src/features/dashboard/screens/home_screen.dar
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
 import 'package:catering_user_app/src/features/order/screens/order_list_screen.dart';
 import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
+import 'package:catering_user_app/src/themes/color.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -23,8 +24,10 @@ class _MainScreenState extends State<MainScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: _screens[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+        selectedItemColor: AppColor.primaryRed,
         type: BottomNavigationBarType.fixed,
         items: const [
           BottomNavigationBarItem(

@@ -104,7 +104,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                             height: 32.h,
                             width: 60.w,
                             decoration: BoxDecoration(
-                              color: Colors.white.withOpacity(0.8),
+                              color: Theme.of(context).colorScheme.surfaceVariant,
                               borderRadius: BorderRadius.circular(10.r),
                             ),
                             child: Center(
@@ -148,28 +148,28 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           subText: 'View reviews and feedbacks',
                           onPressed: (){},
                         ),
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 14.h,),
                         OptionCard(
                           iconData: Icons.history,
                           text: 'History',
                           subText: 'Service history',
                           onPressed: (){},
                         ),
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 14.h,),
                         OptionCard(
                           iconData: Icons.attach_money,
                           text: 'Payment',
                           subText: 'Payment history',
                           onPressed: (){},
                         ),
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 14.h,),
                         OptionCard(
                           iconData: Icons.help_outline,
                           text: 'Support',
                           subText: 'Request for help & support ',
                           onPressed: (){},
                         ),
-                        SizedBox(height: 10.h,),
+                        SizedBox(height: 14.h,),
                         OptionCard(
                           iconData: Icons.power_settings_new_rounded,
                           text: 'Logout',
