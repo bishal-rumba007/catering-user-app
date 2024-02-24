@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
+import 'package:khalti_flutter/khalti_flutter.dart';
 
 class OrderSummaryScreen extends StatefulWidget {
   final PreOrderModel preOrderModel;
@@ -59,6 +60,19 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final config = PaymentConfig(
+      amount: 200,
+      productIdentity: widget.preOrderModel.menu.menuId,
+      productName: widget.preOrderModel.menu.categoryName,
+      additionalData: {
+        'caterer_id': widget.preOrderModel.menu.userId,
+        'customer_id': widget.preOrderModel.customerId,
+        'product_id': widget.preOrderModel.menu.menuId,
+        'order_date': widget.preOrderModel.date,
+        'total_guests': widget.preOrderModel.totalGuests,
+      },
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Order Summary'),
@@ -356,7 +370,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         helpers: widget.preOrderModel.helpers,
                         orderDate: widget.preOrderModel.date,
                         totalGuests: widget.preOrderModel.totalGuests),
-                    advancePayment: "",
+                    advancePayment: "1000",
                     price: widget.preOrderModel.menu.price.toString(),
                     categoryId: widget.preOrderModel.menu.categoryId,
                     categoryName: widget.preOrderModel.menu.categoryName,
@@ -371,38 +385,60 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     user: const types.User(id: ''),
                   );
                   buildLoadingDialog(context, 'Placing Order!!');
-                  final response =
-                      await OrderDataSource().placeOrder(orderModel);
-                  navigator.pop();
-                  if (response == 'Order Placed Successfully') {
-                    await ChatDataSource().sendNotification(
-                      token: widget.preOrderModel.user.metadata!['deviceToken'],
-                      title: "New Order",
-                      message:
+                  KhaltiScope.of(context).pay(
+                    config: config,
+                    onSuccess: (value) async{
+                      final response =
+                          await OrderDataSource().placeOrder(orderModel);
+                      navigator.pop();
+                      if (response == 'Order Placed Successfully') {
+                        await ChatDataSource().sendNotification(
+                          token: widget.preOrderModel.user.metadata!['deviceToken'],
+                          title: "New Order",
+                          message:
                           "You have a new order from ${widget.preOrderModel.name}",
-                      notificationData: {
-                        'click_action': 'FLUTTER_NOTIFICATION_CLICK',
-                        'name': widget.preOrderModel.name,
-                        'type': 'order',
-                        'route': 'order',
-                      },
-                    );
-                    if (!context.mounted) return;
-                    buildSuccessDialog(
-                      context,
-                      response,
-                      () {
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, Routes.mainScreenRoute, (route) => false);
-                      },
-                    );
-                  } else {
-                    if (!context.mounted) return;
-                    buildErrorDialog(
-                      context,
-                      'Could not place order\n Try again later!',
-                    );
-                  }
+                          notificationData: {
+                            'click_action': 'FLUTTER_NOTIFICATION_CLICK',
+                            'name': widget.preOrderModel.name,
+                            'type': 'order',
+                            'route': 'order',
+                          },
+                        );
+                        if (!context.mounted) return;
+                        buildSuccessDialog(
+                          context,
+                          response,
+                              () {
+                            Navigator.pushNamedAndRemoveUntil(
+                                context, Routes.mainScreenRoute, (route) => false);
+                          },
+                        );
+                      } else {
+                        if (!context.mounted) return;
+                        buildErrorDialog(
+                          context,
+                          'Could not place order\n Try again later!',
+                        );
+                      }
+                    },
+                    onFailure: (value) {
+                      navigator.pop();
+                      if (!context.mounted) return;
+                      buildErrorDialog(
+                        context,
+                        'Could not place order\n Try again later!',
+                      );
+                    },
+                    onCancel: (){
+                      navigator.pop();
+                      if (!context.mounted) return;
+                      buildErrorDialog(
+                        context,
+                        "You've cancelled the order!",
+                        title: 'Order Cancelled',
+                      );
+                    }
+                  );
                 },
                 buttonWidget: const Text('Confirm'),
               ),
@@ -414,8 +450,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
         ),
       ),
     );
-  }
 
+  }
   Row buildContactInfo(BuildContext context, String title, IconData iconData) {
     return Row(
       children: [
@@ -441,34 +477,3 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   }
 }
 
-class MySeparator extends StatelessWidget {
-  const MySeparator({super.key, this.height = 1, this.color = Colors.black});
-  final double height;
-  final Color color;
-
-  @override
-  Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (BuildContext context, BoxConstraints constraints) {
-        final boxWidth = constraints.constrainWidth();
-        const dashWidth = 10.0;
-        final dashHeight = height;
-        final dashCount = (boxWidth / (2 * dashWidth)).floor();
-        return Flex(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          direction: Axis.horizontal,
-          children: List.generate(dashCount, (_) {
-            return SizedBox(
-              width: dashWidth,
-              height: dashHeight,
-              child: DecoratedBox(
-                decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.onSurface),
-              ),
-            );
-          }),
-        );
-      },
-    );
-  }
-}
