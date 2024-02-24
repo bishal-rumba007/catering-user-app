@@ -3,7 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 
 
-buildErrorDialog(BuildContext context, String message) {
+buildErrorDialog(BuildContext context, String message, {String? title}) {
   return showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -18,7 +18,7 @@ buildErrorDialog(BuildContext context, String message) {
             Icon(Icons.warning_rounded, size: 70.h,),
             SizedBox(height: 10.h,),
             Text(
-              'Something went wrong!',
+              title ?? 'Something went wrong!',
               style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w500
