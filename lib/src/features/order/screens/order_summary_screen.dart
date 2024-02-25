@@ -61,7 +61,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     final config = PaymentConfig(
-      amount: 200,
+      amount: (totalPrice * 0.2).round(),
       productIdentity: widget.preOrderModel.menu.menuId,
       productName: widget.preOrderModel.menu.categoryName,
       additionalData: {
@@ -370,7 +370,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         helpers: widget.preOrderModel.helpers,
                         orderDate: widget.preOrderModel.date,
                         totalGuests: widget.preOrderModel.totalGuests),
-                    advancePayment: "1000",
+                    advancePayment: "${(totalPrice * 0.2).round()}",
                     price: widget.preOrderModel.menu.price.toString(),
                     categoryId: widget.preOrderModel.menu.categoryId,
                     categoryName: widget.preOrderModel.menu.categoryName,
