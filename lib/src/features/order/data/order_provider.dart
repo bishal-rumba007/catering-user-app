@@ -12,6 +12,10 @@ final cancelOrderProvider = FutureProvider.family<String, String>(
         (ref, String orderId) => OrderDataSource().cancelOrder(orderId: orderId)
 );
 
+final bookedDateProvider = FutureProvider.family<List<DateTime>, String>(
+        (ref, String catererId) => OrderDataSource().getAcceptedOrderDates(catererId)
+);
+
 
 
 

@@ -2,6 +2,7 @@ import 'package:catering_user_app/src/common/common_export.dart';
 import 'package:catering_user_app/src/features/menu/domain/models/menu_model.dart';
 import 'package:catering_user_app/src/features/menu/screens/widgets/common_function.dart';
 import 'package:catering_user_app/src/features/menu/screens/widgets/input_chip_field.dart';
+import 'package:catering_user_app/src/features/order/data/order_provider.dart';
 import 'package:catering_user_app/src/features/order/domain/pre_order_model.dart';
 import 'package:catering_user_app/src/features/order/screens/order_summary_screen.dart';
 import 'package:catering_user_app/src/shared/data/user_provider.dart';
@@ -54,6 +55,8 @@ class _BookingScreenState extends State<BookingScreen> {
     _totalController.text = "Rs. ${formatTotalPrice(totalPrice)}";
   }
 
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,6 +65,16 @@ class _BookingScreenState extends State<BookingScreen> {
       ),
       body: Consumer(
         builder: (context, ref, child) {
+          final dateData = ref.watch(bookedDateProvider(widget.menuData.userId));
+          List<DateTime> bookedDates = [];
+          dateData.when(
+            data: (data) {
+              bookedDates = data;
+            },
+            error: (error, stackTrace) => const Text('Error'),
+            loading: () => const CircularProgressIndicator(),
+          );
+
           final userData = ref.watch(singleUserProvider);
           return userData.when(
             data: (data) {
@@ -101,14 +114,11 @@ class _BookingScreenState extends State<BookingScreen> {
                                 onPressed: () async {
                                   final DateTime? pickedDate = await showDatePicker(
                                     context: context,
-                                    initialDate:
-                                    DateTime.now().add(const Duration(days: 1)),
+                                    initialDate: DateTime.now().add(const Duration(days: 1)),
                                     firstDate: DateTime.now(),
-                                    lastDate: DateTime(2025),
-                                    selectableDayPredicate: (DateTime day) {
-                                      return day.isAfter(DateTime
-                                          .now()); // Allow dates from tomorrow onwards
-                                    },
+                                    lastDate: DateTime(2025, 12, 31),
+                                    selectableDayPredicate: (DateTime day) =>
+                                      day.isAfter(DateTime.now()) && !bookedDates.contains(day),
                                   );
                                   if (pickedDate != null) {
                                     dateController.text =

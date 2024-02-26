@@ -15,7 +15,7 @@ class OrderDataSource {
     try {
       await _orderDb.add({
         'orderInfo': orderModel.orderDetail.toJson(),
-        'advancePayment': '3000',
+        'advancePayment': orderModel.advancePayment,
         'price': orderModel.price,
         'categoryId': orderModel.categoryId,
         'categoryName': orderModel.categoryName,
@@ -114,11 +114,29 @@ class OrderDataSource {
     }
   }
 
+  Future<List<DateTime>> getAcceptedOrderDates(String catererId) {
+    try {
+      return _orderDb
+          .where('catererId', isEqualTo: catererId)
+          .where('orderStatus', isEqualTo: OrderStatus.accepted.index)
+          .get()
+          .then((value) {
+        return value.docs.map((e) {
+          final json = e.data();
+          return DateTime.parse(json['orderInfo']['orderDate']);
+        }).toList();
+      });
+    } on FirebaseException catch (err) {
+      throw '$err';
+    }
+  }
+
   Future<String> cancelOrder({required String orderId}) async {
     try {
-      await _orderDb.doc(orderId).update({
-        'orderStatus': OrderStatus.cancelled.index,
-      });
+      // await _orderDb.doc(orderId).update({
+      //   'orderStatus': OrderStatus.cancelled.index,
+      // });
+      await _orderDb.doc(orderId).delete();
       return 'Order Cancelled';
     } on FirebaseException catch (err) {
       throw '$err';
@@ -136,7 +154,7 @@ class OrderDataSource {
         'senderId': orderModel.orderDetail.customerId,
         'receiverId': orderModel.catererId,
         'isRead': false,
-        'createdAt': DateTime.now.toString(),
+        'createdAt': "${DateTime.now()}",
         'data': {'reason': reason, 'orderInfo': orderModel.toJson()},
       });
       return 'Order cancelled';
