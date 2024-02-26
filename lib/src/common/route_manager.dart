@@ -6,6 +6,7 @@ import 'package:catering_user_app/src/features/dashboard/screens/main_screen.dar
 import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
 import 'package:catering_user_app/src/features/order/screens/order_list_screen.dart';
+import 'package:catering_user_app/src/features/payment/screens/payment_history_screen.dart';
 import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
 import 'package:catering_user_app/src/features/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
@@ -25,6 +26,7 @@ class Routes {
   static const String chatRoute = '/chat';
   static const String searchRoute = '/search';
   static const String mainScreenRoute = '/main-screen';
+  static const String paymentHistoryRoute = '/payment-history';
 }
 
 class RouteGenerator {
@@ -52,6 +54,8 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const SearchScreen());
       case Routes.mainScreenRoute:
         return MaterialPageRoute(builder: (_) => const MainScreen());
+      case Routes.paymentHistoryRoute:
+        return MaterialPageRoute(builder: (_) => const PaymentHistoryScreen());
 
       ///Todo: Figure out route that requires parameters
       // case Routes.chatRoute:
