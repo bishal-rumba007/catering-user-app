@@ -61,7 +61,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     final config = PaymentConfig(
-      amount: (totalPrice * 0.2).round(),
+      amount: (totalPrice * 0.2 * 100).round(),
       productIdentity: widget.preOrderModel.menu.menuId,
       productName: widget.preOrderModel.menu.categoryName,
       additionalData: {
@@ -100,10 +100,10 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
               Card(
                 elevation: 2,
                 child: Container(
-                  height: 160.h,
+                  height: 140.h,
                   width: double.infinity,
                   padding:
-                      EdgeInsets.symmetric(horizontal: 18.w, vertical: 16.h),
+                      EdgeInsets.symmetric(horizontal: 18.w, vertical: 14.h),
                   child: Column(
                     children: [
                       buildContactInfo(
@@ -371,7 +371,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         orderDate: widget.preOrderModel.date,
                         totalGuests: widget.preOrderModel.totalGuests),
                     advancePayment: "${(totalPrice * 0.2).round()}",
-                    price: widget.preOrderModel.menu.price.toString(),
+                    price: totalPrice.toString(),
                     categoryId: widget.preOrderModel.menu.categoryId,
                     categoryName: widget.preOrderModel.menu.categoryName,
                     categoryImage: "",
