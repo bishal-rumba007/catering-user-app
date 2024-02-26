@@ -4,6 +4,7 @@ import 'package:catering_user_app/src/features/chat/data/chat_datasource.dart';
 import 'package:catering_user_app/src/features/order/data/order_datasource.dart';
 import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/domain/pre_order_model.dart';
+import 'package:catering_user_app/src/features/payment/data/payment_datasource.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -61,7 +62,8 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
   @override
   Widget build(BuildContext context) {
     final config = PaymentConfig(
-      amount: (totalPrice * 0.2 * 100).round(),
+      // Todo: due to test mode, the amount is set to 199. need to change to actual amount later
+      amount: 19900,
       productIdentity: widget.preOrderModel.menu.menuId,
       productName: widget.preOrderModel.menu.categoryName,
       additionalData: {
@@ -371,10 +373,10 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                         orderDate: widget.preOrderModel.date,
                         totalGuests: widget.preOrderModel.totalGuests),
                     advancePayment: "${(totalPrice * 0.2).round()}",
-                    price: totalPrice.toString(),
+                    price: widget.preOrderModel.menu.price.toString(),
                     categoryId: widget.preOrderModel.menu.categoryId,
                     categoryName: widget.preOrderModel.menu.categoryName,
-                    categoryImage: "",
+                    categoryImage: widget.preOrderModel.menu.categoryImage,
                     catererId: widget.preOrderModel.menu.userId,
                     menuId: widget.preOrderModel.menu.menuId,
                     menuName: widget.preOrderModel.menu.categoryName,
@@ -390,6 +392,7 @@ class _OrderSummaryScreenState extends State<OrderSummaryScreen> {
                     onSuccess: (value) async{
                       final response =
                           await OrderDataSource().placeOrder(orderModel);
+                      await PaymentDataSource().addPayment(orderModel, value.idx, value.token,);
                       navigator.pop();
                       if (response == 'Order Placed Successfully') {
                         await ChatDataSource().sendNotification(

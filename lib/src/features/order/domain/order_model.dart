@@ -52,7 +52,7 @@ class OrderModel {
       price: json['price'] as String,
       categoryId: json['categoryId'] as String,
       categoryName: json['categoryName'] as String,
-      categoryImage: json['categoryImage'],
+      categoryImage: json['categoryImage'] ?? "",
       catererId: json['catererId'] as String,
       menuId: json['menuId'] as String,
       menuName: json['menuName'] as String,

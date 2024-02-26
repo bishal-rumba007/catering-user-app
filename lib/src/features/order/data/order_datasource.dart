@@ -7,6 +7,7 @@ class OrderDataSource {
   final _userDb = FirebaseFirestore.instance.collection('users');
   final _orderDb = FirebaseFirestore.instance.collection('orders');
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
+  final _paymentDb = FirebaseFirestore.instance.collection('payments');
   final _notificationDb =
       FirebaseFirestore.instance.collection('notifications');
   final uid = FirebaseAuth.instance.currentUser!.uid;
@@ -32,6 +33,7 @@ class OrderDataSource {
       throw e.message.toString();
     }
   }
+
 
   Stream<List<OrderModel>> getOrdersStream() {
     final uid = FirebaseAuth.instance.currentUser!.uid;
