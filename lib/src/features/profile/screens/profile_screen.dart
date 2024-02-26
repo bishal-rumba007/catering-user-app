@@ -160,7 +160,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           iconData: Icons.attach_money,
                           text: 'Payment',
                           subText: 'Payment history',
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.pushNamed(context, '/payment-history');
+                          },
                         ),
                         SizedBox(height: 14.h,),
                         OptionCard(
