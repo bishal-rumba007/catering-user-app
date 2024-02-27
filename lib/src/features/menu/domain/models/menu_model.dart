@@ -1,3 +1,4 @@
+import 'package:catering_user_app/src/features/review/domain/review_model.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class Menus {
@@ -13,6 +14,7 @@ class Menus {
   List<String> mainCourseMenu;
   List<String> dessertMenu;
   final types.User user;
+  List<ReviewModel>? reviews;
 
   Menus({
     required this.userId,
@@ -27,6 +29,7 @@ class Menus {
     required this.dessertMenu,
     required this.menuDescription,
     required this.user,
+    this.reviews = const [],
   });
 
   factory Menus.fromJson(Map<String, dynamic> json) {
@@ -43,6 +46,7 @@ class Menus {
       mainCourseMenu: List<String>.from(json['mainCourseMenu']),
       dessertMenu: List<String>.from(json['dessertMenu']),
       user: json['user'],
+      reviews: json['reviews'],
     );
   }
 

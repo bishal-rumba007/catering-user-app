@@ -37,6 +37,10 @@ class PopularMenuCard extends StatelessWidget {
               childAspectRatio: 0.89
           ),
           itemBuilder: (context, index) {
+            final reviewList = menuData[index].reviews;
+            double rating = reviewList!.isEmpty ? 0 : double.parse((reviewList.map((e) {
+              return e.rating;
+            }).reduce((value, element) => value + element) / reviewList.length).toStringAsFixed(1));
             return InkWell(
               onTap: () {
                 Navigator.push(
@@ -105,7 +109,7 @@ class PopularMenuCard extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            '3.2 ⭐',
+                            '$rating ⭐',
                             style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                               color: AppColor.containerColor,
                               fontSize: 15.sp,

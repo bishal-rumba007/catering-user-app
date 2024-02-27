@@ -1,4 +1,5 @@
 import 'package:catering_user_app/src/features/menu/domain/models/menu_model.dart';
+import 'package:catering_user_app/src/features/review/domain/review_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
@@ -7,6 +8,7 @@ class MenuDataSource {
   final menuDb = FirebaseFirestore.instance.collection('menus');
   final _userDb = FirebaseFirestore.instance.collection('users');
   final _categoryDb = FirebaseFirestore.instance.collection('categories');
+  final _reviewDb = FirebaseFirestore.instance.collection('reviews');
   final uid = FirebaseAuth.instance.currentUser!.uid;
 
   Future<List<Menus>> getMenu() async {
@@ -18,11 +20,13 @@ class MenuDataSource {
             final json = doc.data();
             final categoryImage = await getCategoryImage(json['categoryId']);
             final user = await getUserDetail(json['userId']);
+            final reviews = await getReview(doc.id);
             return Menus.fromJson({
               ...json,
               'categoryImage': categoryImage,
               'menuId': doc.id,
               'user': user,
+              'reviews': reviews,
             });
           },
         ),
@@ -67,6 +71,26 @@ class MenuDataSource {
       }
     } on FirebaseException catch (error) {
       throw '$error';
+    }
+  }
+
+  Future<List<ReviewModel>> getReview(String menuId) async {
+    try {
+      final response = await _reviewDb.where('menuId', isEqualTo: menuId).get();
+      final reviewList = await Future.wait(
+        response.docs.map(
+          (doc) async {
+            final json = doc.data();
+            return ReviewModel.fromJson({
+              ...json,
+              'reviewId': doc.id,
+            });
+          },
+        ),
+      );
+      return reviewList;
+    } on FirebaseException catch (err) {
+      throw '$err';
     }
   }
 
