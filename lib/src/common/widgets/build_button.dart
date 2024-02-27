@@ -30,3 +30,33 @@ class BuildButton extends StatelessWidget {
     );
   }
 }
+
+class BuildOutlinedButton extends StatelessWidget {
+  final VoidCallback? onPressed;
+  final Widget buttonWidget;
+  final Color? backgroundColor;
+  final Color? textColor;
+  final double? fontSize;
+  final FontWeight? fontWeight;
+  final ElevatedButtonTheme? buttonTheme;
+  final ButtonStyle? buttonStyle;
+
+  const BuildOutlinedButton({super.key, required this.onPressed,
+    required this.buttonWidget,
+    this.buttonStyle,
+    this.backgroundColor,
+    this.textColor,
+    this.fontSize,
+    this.fontWeight,
+    this.buttonTheme,
+  });
+  @override
+  Widget build(BuildContext context) {
+    return OutlinedButton(
+      onPressed: onPressed,
+      style: buttonStyle,
+      child: buttonWidget,
+    );
+  }
+}
+
