@@ -202,18 +202,13 @@ ThemeData darkMode = ThemeData(
   ),
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     backgroundColor: Colors.grey.shade900.withAlpha(500),
-    elevation: 3,
-    showUnselectedLabels: false,
+    elevation: 4,
+    showUnselectedLabels: true,
     selectedIconTheme: const IconThemeData(
       color: AppColor.primaryRed,
     ),
-    selectedLabelStyle: GoogleFonts.inter(
-      fontSize: 12.sp,
-      fontWeight: FontWeight.w600,
-      color: AppColor.primaryRed, // This is the selected label color
-    ),
     unselectedIconTheme: IconThemeData(
-      color: Colors.grey.shade700,
+      color: Colors.grey.shade500,
     ),
   ),
 );
@@ -458,7 +453,7 @@ ThemeData lightMode = ThemeData(
   bottomNavigationBarTheme: BottomNavigationBarThemeData(
     elevation: 2,
     backgroundColor: Colors.white.withAlpha(500),
-    showUnselectedLabels: false,
+    showUnselectedLabels: true,
     selectedIconTheme: const IconThemeData(
       color: AppColor.primaryRed,
     ),
