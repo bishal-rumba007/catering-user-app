@@ -5,6 +5,7 @@ import 'package:catering_user_app/src/features/order/data/order_datasource.dart'
 import 'package:catering_user_app/src/features/order/data/order_provider.dart';
 import 'package:catering_user_app/src/features/order/domain/order_model.dart';
 import 'package:catering_user_app/src/features/order/screens/widgets/common_function.dart';
+import 'package:catering_user_app/src/features/review/screens/review_modal.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -290,25 +291,26 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
                           SizedBox(
                             height: 30.h,
                           ),
-                          data.orderStatus.index == 1
-                              ? BuildButton(
-                                  onPressed: () async {
-                                    final navigator = Navigator.of(context);
-                                    navigator.pushNamed('/recent-chat');
-                                  },
-                                  buttonWidget: const Text('Message'),
-                                )
-                              : OutlinedButton(
-                                  style: OutlinedButton.styleFrom(
-                                    side: const BorderSide(
-                                      color: AppColor.primaryRed,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    buildRejectModal(context, data);
-                                  },
-                                  child: const Text('Cancel Order'),
-                                ),
+                          displayButton(context, data.orderStatus.index, data),
+                          // data.orderStatus.index == 1
+                          //     ? BuildButton(
+                          //         onPressed: () async {
+                          //           final navigator = Navigator.of(context);
+                          //           navigator.pushNamed('/recent-chat');
+                          //         },
+                          //         buttonWidget: const Text('Message'),
+                          //       )
+                          //     : OutlinedButton(
+                          //         style: OutlinedButton.styleFrom(
+                          //           side: const BorderSide(
+                          //             color: AppColor.primaryRed,
+                          //           ),
+                          //         ),
+                          //         onPressed: () {
+                          //           buildRejectModal(context, data);
+                          //         },
+                          //         child: const Text('Cancel Order'),
+                          //       ),
                           SizedBox(
                             height: 10.h,
                           ),
@@ -400,5 +402,41 @@ class _OrderDetailScreenState extends ConsumerState<OrderDetailScreen> {
         );
       },
     );
+  }
+
+  displayButton(BuildContext context, int index, OrderModel data) {
+    if (index == 1) {
+      return BuildButton(
+        onPressed: () async {
+          final navigator = Navigator.of(context);
+          navigator.pushNamed('/recent-chat');
+        },
+        buttonWidget: const Text('Message'),
+      );
+    }else if(index == 3){
+      return BuildButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return ReviewModal(orderModel: data,);
+            },
+          );
+        },
+        buttonWidget: const Text('Give Review'),
+      );
+    } else {
+      return OutlinedButton(
+        style: OutlinedButton.styleFrom(
+          side: const BorderSide(
+            color: AppColor.primaryRed,
+          ),
+        ),
+        onPressed: () {
+          buildRejectModal(context, data);
+        },
+        child: const Text('Cancel Order'),
+      );
+    }
   }
 }
