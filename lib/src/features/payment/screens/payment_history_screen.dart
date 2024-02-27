@@ -18,7 +18,8 @@ class PaymentHistoryScreen extends ConsumerStatefulWidget {
       _PaymentHistoryScreenState();
 }
 
-class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen> with TickerProviderStateMixin{
+class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen>
+    with TickerProviderStateMixin {
   void _copyToClipboard(BuildContext context, String textToCopy) {
     Navigator.pop(context);
     Clipboard.setData(ClipboardData(text: textToCopy));
@@ -60,13 +61,14 @@ class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen> wit
                 final payData = data[index];
                 return InkWell(
                   onTap: () {
-                    buildShowModalBottomSheet(context, theme, payData, formatter, advanceAmount, index);
+                    buildShowModalBottomSheet(context, theme, payData,
+                        formatter, advanceAmount, index);
                   },
                   child: Card(
                     elevation: 1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(
-                          10.r,
+                        10.r,
                       ), // Set the border radius here
                     ),
                     margin: const EdgeInsets.only(
@@ -195,97 +197,97 @@ class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen> wit
     );
   }
 
-  Future<dynamic> buildShowModalBottomSheet(BuildContext context, ThemeData theme, PaymentDetailModel payData, NumberFormat formatter, List<double> advanceAmount, int index) {
+  Future<dynamic> buildShowModalBottomSheet(
+      BuildContext context,
+      ThemeData theme,
+      PaymentDetailModel payData,
+      NumberFormat formatter,
+      List<double> advanceAmount,
+      int index) {
     return showModalBottomSheet(
-                    useRootNavigator: false,
-                    showDragHandle: true,
-                    context: context,
-                    builder: (context) {
-                      return Container(
-                        height: 300.h,
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 18.w, vertical: 10.h),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              'Payment Details',
-                              style: theme.textTheme.titleLarge,
-                            ),
-                            SizedBox(height: 10.h),
-                            Text(
-                              'Transaction ID',
-                              style: theme.textTheme.bodyLarge,
-                            ),
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                Text(
-                                  payData.idx,
-                                  style: theme.textTheme.bodyMedium,
-                                ),
-                                SizedBox(width: 5.w),
-                                IconButton(
-                                  onPressed: (){
-                                    _copyToClipboard(context, payData.idx);
-                                  },
-                                  icon: Icon(Icons.copy_rounded, size: 20.sp),
-                                ),
-                              ],
-                            ),
-
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Date',
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                                Text(
-                                  DateFormat('dd MMM yyyy').format(
-                                      DateTime.parse(payData.createdAt)),
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 5.h),
-                            Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Source',
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                                Text(
-                                  'Khalti Wallet',
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                              ],
-                            ),
-                            SizedBox(height: 20.h),
-                            const MySeparator(),
-                            SizedBox(height: 20.h),
-                            Row(
-                              mainAxisAlignment:
-                              MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  'Amount',
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                                Text(
-                                  formatter.format(advanceAmount[index]),
-                                  style: theme.textTheme.bodyLarge,
-                                ),
-                              ],
-                            ),
-
-                          ],
-                        ),
-                      );
+      useRootNavigator: false,
+      showDragHandle: true,
+      context: context,
+      builder: (context) {
+        return Container(
+          height: 300.h,
+          padding: EdgeInsets.symmetric(horizontal: 18.w, vertical: 10.h),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'Payment Details',
+                style: theme.textTheme.titleLarge,
+              ),
+              SizedBox(height: 10.h),
+              Text(
+                'Transaction ID',
+                style: theme.textTheme.bodyLarge,
+              ),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    payData.idx,
+                    style: theme.textTheme.bodyMedium,
+                  ),
+                  SizedBox(width: 5.w),
+                  IconButton(
+                    onPressed: () {
+                      _copyToClipboard(context, payData.idx);
                     },
-                  );
+                    icon: Icon(Icons.copy_rounded, size: 20.sp),
+                  ),
+                ],
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Date',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  Text(
+                    DateFormat('dd MMM yyyy')
+                        .format(DateTime.parse(payData.createdAt)),
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+              SizedBox(height: 5.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Source',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  Text(
+                    'Khalti Wallet',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+              SizedBox(height: 20.h),
+              const MySeparator(),
+              SizedBox(height: 20.h),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    'Amount',
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                  Text(
+                    formatter.format(advanceAmount[index]),
+                    style: theme.textTheme.bodyLarge,
+                  ),
+                ],
+              ),
+            ],
+          ),
+        );
+      },
+    );
   }
 }
