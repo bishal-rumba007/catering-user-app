@@ -57,6 +57,7 @@ dependencies:
   dio: ^5.4.0
   googleapis_auth: ^1.4.1
   khalti_flutter: ^3.0.0
+  flutter_rating_bar: ^4.0.1
 
 dev_dependencies:
   test: ^1.24.9
