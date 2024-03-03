@@ -2,7 +2,6 @@
 
 
 
-import 'package:catering_user_app/src/app.dart';
 import 'package:catering_user_app/src/features/review/domain/review_model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 

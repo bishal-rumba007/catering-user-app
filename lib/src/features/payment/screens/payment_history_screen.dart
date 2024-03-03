@@ -1,8 +1,6 @@
 import 'package:catering_user_app/src/common/common_export.dart';
-import 'package:catering_user_app/src/features/order/data/order_provider.dart';
 import 'package:catering_user_app/src/features/payment/data/payment_provider.dart';
 import 'package:catering_user_app/src/features/payment/domain/payment_model.dart';
-import 'package:catering_user_app/src/shared/data/user_provider.dart';
 import 'package:catering_user_app/src/themes/export_themes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';

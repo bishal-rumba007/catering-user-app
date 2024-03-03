@@ -8,7 +8,10 @@ import 'package:flutter_firebase_chat_core/flutter_firebase_chat_core.dart';
 import 'package:flutter_chat_types/flutter_chat_types.dart' as types;
 
 class AuthDataSource {
+  final FirebaseAuth auth;
   final userDb = FirebaseFirestore.instance.collection('users');
+
+  AuthDataSource({required this.auth});
 
   Future<String> userSignup(
       {required String fullName,
@@ -16,8 +19,8 @@ class AuthDataSource {
       required String phoneNumber,
       required String password}) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(email: email, password: password);
+      final credential = await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       final token = await FirebaseMessaging.instance.getToken();
       await FirebaseChatCore.instance.createUserInFirestore(
         types.User(firstName: fullName, id: credential.user!.uid, metadata: {
@@ -33,11 +36,22 @@ class AuthDataSource {
     }
   }
 
+  Future<String> createAccount(
+      {required String email, required String password}) async {
+    try {
+      await auth.createUserWithEmailAndPassword(
+          email: email, password: password);
+      return 'Registration Successful';
+    } on FirebaseAuthException catch (err) {
+      return '${err.message}';
+    }
+  }
+
   Future<String> userLogin(
       {required String username, required String password}) async {
     try {
-      final credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: username, password: password);
+      final credential = await auth.signInWithEmailAndPassword(
+          email: username, password: password);
       final token = await FirebaseMessaging.instance.getToken();
       final userData = await userDb.doc(credential.user!.uid).get();
       await userDb.doc(credential.user!.uid).update({
@@ -56,7 +70,7 @@ class AuthDataSource {
 
   Future<String> userLogout() async {
     try {
-      await FirebaseAuth.instance.signOut();
+      await auth.signOut();
       navigatorKey.currentState?.pushAndRemoveUntil(
           MaterialPageRoute(
             builder: (_) => const LoginScreen(),

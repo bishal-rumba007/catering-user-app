@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class BuildTextFormField extends StatelessWidget {
   const BuildTextFormField({
-    Key? key,
+    super.key,
     required this.controller,
     this.validator,
     this.labelText = 'Label',
@@ -11,7 +11,7 @@ class BuildTextFormField extends StatelessWidget {
     this.textInputType,
     this.textInputAction,
     this.isEnabled = true,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String? Function(String?)? validator;
@@ -40,14 +40,14 @@ class BuildTextFormField extends StatelessWidget {
 
 class BuildPasswordTextFormField extends StatefulWidget {
   const BuildPasswordTextFormField({
-    Key? key,
+    super.key,
     required this.controller,
     this.validator,
     this.labelText = 'Label',
     this.hintText = 'Enter password',
     this.textInputType,
     this.textInputAction,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String? Function(String?)? validator;
@@ -96,7 +96,7 @@ class _BuildPasswordTextFormFieldState
 
 class BuildTextField extends StatelessWidget {
   const BuildTextField({
-    Key? key,
+    super.key,
     required this.controller,
     this.validator,
     this.labelText = '',
@@ -108,7 +108,7 @@ class BuildTextField extends StatelessWidget {
     this.autoFocus = false,
     this.isEnabled = true,
     this.onChanged,
-  }) : super(key: key);
+  });
 
   final TextEditingController controller;
   final String? Function(String?)? validator;
