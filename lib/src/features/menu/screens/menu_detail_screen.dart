@@ -50,9 +50,10 @@ class MenuDetailScreenState extends ConsumerState<MenuDetailScreen> {
   Widget build(BuildContext context) {
     final menuDetail = widget.menuData;
     final reviewList = menuDetail.reviews;
-    double totalRating = reviewList!.isEmpty ? 0 : reviewList.map((e) {
-      return e.rating;
-    }).reduce((value, element) => value + element) / reviewList.length;
+    num totalRating = reviewList!.isEmpty ? 0 :
+    num.parse((reviewList.map((e) => e.rating).reduce((value, element) => value + element) /
+        reviewList.length).toStringAsFixed(1));
+
     int totalReview = reviewList.length;
     return Scaffold(
       resizeToAvoidBottomInset: true,

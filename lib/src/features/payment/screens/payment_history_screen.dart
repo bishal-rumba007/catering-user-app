@@ -53,7 +53,7 @@ class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen>
               data.map((e) => double.parse(e.amount)).toList();
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: ListView.builder(
+            child: ListView.separated(
               itemCount: data.length,
               itemBuilder: (context, index) {
                 final payData = data[index];
@@ -101,7 +101,7 @@ class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen>
                                   children: [
                                     Text(
                                       "${payData.orderInfo.menuName} Party",
-                                      style: theme.textTheme.bodyLarge,
+                                      style: theme.textTheme.labelLarge,
                                     ),
                                     SizedBox(width: 10.w),
                                     Text(
@@ -181,6 +181,9 @@ class _PaymentHistoryScreenState extends ConsumerState<PaymentHistoryScreen>
                     ),
                   ),
                 );
+              },
+              separatorBuilder: (context, index) {
+                return SizedBox(height: 12.h);
               },
             ),
           );

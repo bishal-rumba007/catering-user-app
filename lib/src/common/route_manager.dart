@@ -7,8 +7,10 @@ import 'package:catering_user_app/src/features/menu/screens/menu_screen.dart';
 import 'package:catering_user_app/src/features/notification/screens/notification_screen.dart';
 import 'package:catering_user_app/src/features/order/screens/order_list_screen.dart';
 import 'package:catering_user_app/src/features/payment/screens/payment_history_screen.dart';
+import 'package:catering_user_app/src/features/profile/screens/edit_profile_screen.dart';
 import 'package:catering_user_app/src/features/profile/screens/profile_screen.dart';
 import 'package:catering_user_app/src/features/profile/screens/service_history_screen.dart';
+import 'package:catering_user_app/src/features/profile/screens/support_screen.dart';
 import 'package:catering_user_app/src/features/search/screen/search_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -29,6 +31,8 @@ class Routes {
   static const String mainScreenRoute = '/main-screen';
   static const String paymentHistoryRoute = '/payment-history';
   static const String serviceHistoryRoute = '/service-history';
+  static const String supportRoute = '/support';
+  static const String profileEditRoute = '/profile-edit';
 }
 
 class RouteGenerator {
@@ -60,6 +64,10 @@ class RouteGenerator {
         return MaterialPageRoute(builder: (_) => const PaymentHistoryScreen());
       case Routes.serviceHistoryRoute:
         return MaterialPageRoute(builder: (_) => const ServiceHistoryScreen());
+      case Routes.supportRoute:
+        return MaterialPageRoute(builder: (_) => const SupportScreen());
+        case Routes.profileEditRoute:
+          return MaterialPageRoute(builder: (_) => const ProfileEditScreen());
       ///Todo: Figure out route that requires parameters
       // case Routes.chatRoute:
       //   return MaterialPageRoute(builder: (_) => const ChatScreen(room: argument,));

@@ -6,7 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 
 
-final singleUserProvider = StreamProvider((ref) => UserProvider().userStream());
+final singleUserProvider = StreamProvider.autoDispose((ref) => UserProvider().userStream());
 final allUserProvider = StreamProvider((ref) => UserProvider().allUserStream());
 
 class UserProvider{
@@ -14,10 +14,8 @@ class UserProvider{
 
   Stream<types.User> userStream(){
     final uid = FirebaseAuth.instance.currentUser!.uid;
-
     try{
       final data = _userDb.doc(uid).snapshots().map((event) {
-
         final json = event.data() as Map<String, dynamic>;
         return types.User(
           id: event.id,
@@ -40,6 +38,15 @@ class UserProvider{
     try{
       final data = FirebaseChatCore.instance.users();
       return data;
+    } on FirebaseException catch (err){
+      throw '${err.message}';
+    }
+  }
+
+  Future<void> updateUser(Map<String, dynamic> data) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    try{
+      await _userDb.doc(uid).update(data);
     } on FirebaseException catch (err){
       throw '${err.message}';
     }

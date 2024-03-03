@@ -58,6 +58,8 @@ dependencies:
   googleapis_auth: ^1.4.1
   khalti_flutter: ^3.0.0
   flutter_rating_bar: ^4.0.1
+  url_launcher: ^6.2.5
+  carousel_slider: ^4.2.1
 
 dev_dependencies:
   hive_generator: ^2.0.1

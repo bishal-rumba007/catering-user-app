@@ -17,7 +17,8 @@ class MainApp extends StatelessWidget {
         return KhaltiScope(
           publicKey: 'test_public_key_599f6b5632ee4bfabc89b6d5dc55234d',
           enabledDebugging: true,
-          builder: (context, navigatorKey) {
+          navigatorKey: navigatorKey,
+          builder: (context, _) {
             return MaterialApp(
               debugShowCheckedModeBanner: false,
               title: 'Flutter Demo',
