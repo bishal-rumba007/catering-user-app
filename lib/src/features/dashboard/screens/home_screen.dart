@@ -88,40 +88,46 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       drawer: const MyDrawer(),
       body: menuData.when(
         data: (data) {
-          return Padding(
-            padding: EdgeInsets.symmetric(horizontal: 18.w),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  SizedBox(
-                    height: 20.h,
+          return SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: 20.h,
+                ),
+                const CarouselCard(),
+                SizedBox(
+                  height: 20.h,
+                ),
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 18.w),
+                  child: Column(
+                    children: [
+                      const CategoryWidget(),
+                      SizedBox(
+                        height: 16.h,
+                      ),
+                      data.isEmpty ?
+                      Text(
+                        'No Categories Available',
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      )
+                          : PopularMenuCard(menuData: data,),
+                      SizedBox(
+                        height: 200.h,
+                      ),
+                    ],
                   ),
-                  const CarouselCard(),
-                  SizedBox(
-                    height: 20.h,
-                  ),
-                  const CategoryWidget(),
-                  SizedBox(
-                    height: 16.h,
-                  ),
-                  data.isEmpty ?
-                  Text(
-                    'No Categories Available',
-                    style: Theme.of(context).textTheme.bodyMedium,
-                  )
-                      : PopularMenuCard(menuData: data,),
-                  SizedBox(
-                    height: 200.h,
-                  ),
-                ],
-              ),
+                )
+              ],
             ),
           );
         },
-        error: (error, stackTrace) => Center(
-          child: Text('$error'),
-        ),
+        error: (error, stackTrace) {
+          return Center(
+            child: Text('$error'),
+          );
+        },
         loading: () => const Center(
           child: CircularProgressIndicator(),
         ),

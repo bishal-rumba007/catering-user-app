@@ -20,12 +20,13 @@ class _OrderListScreenState extends ConsumerState<OrderListScreen> {
     final orderData = ref.watch(orderProvider);
     return Scaffold(
         appBar: AppBar(
+          automaticallyImplyLeading: false,
           centerTitle: true,
           title: const Text('Orders'),
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushNamed(context, '/home');
+                Navigator.pushNamed(context, '/main-screen');
               },
               icon: const Icon(Icons.add),
             ),

@@ -100,18 +100,23 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                         Positioned(
                           right: 20.w,
                           bottom: 70.h,
-                          child: Container(
-                            height: 32.h,
-                            width: 60.w,
-                            decoration: BoxDecoration(
-                              color: Theme.of(context).colorScheme.surfaceVariant,
-                              borderRadius: BorderRadius.circular(10.r),
-                            ),
-                            child: Center(
-                              child: Text(
-                                'EDIT',
-                                style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                                    fontWeight: FontWeight.w700
+                          child: InkWell(
+                            onTap: (){
+                              Navigator.pushNamed(context, '/profile-edit');
+                            },
+                            child: Container(
+                              height: 32.h,
+                              width: 60.w,
+                              decoration: BoxDecoration(
+                                color: Theme.of(context).colorScheme.surfaceVariant,
+                                borderRadius: BorderRadius.circular(10.r),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  'EDIT',
+                                  style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                                      fontWeight: FontWeight.w700
+                                  ),
                                 ),
                               ),
                             ),
@@ -143,13 +148,6 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                     child: Column(
                       children: [
                         OptionCard(
-                          iconData: Icons.rate_review_outlined,
-                          text: 'Reviews & Feedback',
-                          subText: 'View reviews and feedbacks',
-                          onPressed: (){},
-                        ),
-                        SizedBox(height: 14.h,),
-                        OptionCard(
                           iconData: Icons.history,
                           text: 'History',
                           subText: 'Service history',
@@ -171,7 +169,9 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                           iconData: Icons.help_outline,
                           text: 'Support',
                           subText: 'Request for help & support ',
-                          onPressed: (){},
+                          onPressed: (){
+                            Navigator.pushNamed(context, '/support');
+                          },
                         ),
                         SizedBox(height: 14.h,),
                         OptionCard(
@@ -192,6 +192,7 @@ class _ProfileScreenState extends ConsumerState<ProfileScreen> {
                 left: 0.0,
                 right: 0.0,
                 child: AppBar(
+                  automaticallyImplyLeading: false,
                   centerTitle: true,
                   backgroundColor: Colors.transparent,
                   elevation: 0.0,

@@ -12,6 +12,7 @@ class NotificationScreen extends ConsumerWidget {
     final notifications = ref.watch(notificationListProvider);
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         centerTitle: true,
         title: const Text('Notifications'),
       ),
