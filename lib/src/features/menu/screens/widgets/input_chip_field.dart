@@ -77,7 +77,7 @@ class EditableChipFieldState extends State<EditableChipField> {
       });
 
       // Check if the Enter key is pressed
-      if (HardwareKeyboard.instance.isLogicalKeyPressed(LogicalKeyboardKey.enter)) {
+      if (RawKeyboard.instance.keysPressed.contains(LogicalKeyboardKey.enter)) {
         // If Enter key is not pressed, request focus to keep the keyboard open
         FocusScope.of(context).requestFocus(FocusNode());
       }
